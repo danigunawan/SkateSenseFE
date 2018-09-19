@@ -1,5 +1,5 @@
 const initialState = {
-  pets: [
+  users: [
     {
       id: 1,
       first_name: 'Sean',
