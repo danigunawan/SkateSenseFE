@@ -28,10 +28,11 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action) {
-  console.log('reducer', state, action);
   switch (action.type) {
-    case 'SELECT_USER':
-      return { ...state, currentUser: action.payload }
+    case 'GET_USERS':
+      return {...state, users: action.payload}
+    case 'GET_SKATE_SPOTS':
+      return {...state, skate_spots: action.payload }
     default:
       return state
   }
