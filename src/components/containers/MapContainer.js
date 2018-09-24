@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import data from '../dummy_data'
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
+import NewSpotForm from '../child_components/newSpotForm'
 
 export class MapContainer extends Component {
   constructor(props){
@@ -17,20 +18,12 @@ export class MapContainer extends Component {
           lat: 33.1631037,
           lng: -117.3286687
         }
-      }
+      },
+      SpotName:'',
+      BustValue:'',
+      Photo: ''
   }
 }
-
-
-  // GET GEOLOCATION!!!
-
-  // storeGeoLocation = (lat, lon) =>{
-  //   this.setState({GeoLat: lat,
-  //                 GeoLon: lon})
-  // }
-
-
-
 
 
   onMapClicked = (props) => {
@@ -42,8 +35,6 @@ export class MapContainer extends Component {
       })
     }
   }
-
-    // navigator.geolocation.getCurrentPosition((position) => {this.storeGeoLocation(position.coords.latitude, position.coords.longitude)})
 
   onMarkerClick = (props, marker, e) =>{
     this.setState({
@@ -92,10 +83,34 @@ export class MapContainer extends Component {
   }
 
 
+  // handleNameChange =(e) => {
+  //   e.preventDefault()
+  //  this.setState({SpotName: e.target.value})
+  //  console.log(this.state.SpotName);
+  // }
 
+
+  submitSpotToBackend = (e) =>{
+    e.preventDefault()
+    fetch('http://http://localhost:3000/api/v1/skate_spots',{
+      method: "POST",
+      body: {
+        id: '',
+        name: '',
+        country: '',
+        city: '',
+        latitude: '',
+        longitude: '',
+        description: '',
+        bust_factor: 0,
+        photo: '',
+        user_id: ''
+      }
+    })
+  }
 
   // Allows the buttons on the InfoWindow to work
-  onInfoWindowOpen(props, e) {
+  onInfoWindowOpen = (props, e) => {
       const likeButton = (
           <Button onClick={this.onLike} variant="contained" color="primary">Like</Button>
       );
@@ -120,55 +135,39 @@ export class MapContainer extends Component {
       )
     }
 
-  onNewInfoWindowOpen(props, e){
-    const submitButton = (
-      <Button onClick={this.onSubmittingNewSpot} variant="contained" color="primary">Submit</Button>
+  onNewInfoWindowOpen = (props, e) => {
+    // const submitButton = (
+    //   <Button onClick={this.onSubmittingNewSpot} variant="contained" color="primary">Submit</Button>
+    // )
+    const wholeForm = (
+      <div>
+        <NewSpotForm />
+      </div>
     )
 
-    // const form = (
-    //
-    //
-    //
-    // cost wholeForm = (
-    //
-    //   {submitButton}
-    // )
-
     ReactDOM.render(
-      submitButton,
+      wholeForm,
       document.getElementById("newMarker")
     )
   }
 
 
-
   render() {
     return (
       <Map google={this.props.google}
-          style={{
-            width: "100%",
-            height: "100%"
-          }}
-          initialCenter={{
-              lat: 33.1631037,
-              lng: -117.3286687
-            }}
+          style={{width: "100%",height: "100%"}}
+          initialCenter={{lat: 33.1631037,lng: -117.3286687}}
           zoom={14}
-          onClick={(t, map, c) => this.addMarker(c.latLng, map)}
-          >
+          onClick={(t, map, c) => this.addMarker(c.latLng, map)}>
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
         {data.spots.map(spot => <Marker key={spot.id} onClick={this.onMarkerClick} title={spot.name} image={spot.image} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
-
           <InfoWindow
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
               onOpen={e => {this.onInfoWindowOpen(this.props, e)}}>
-
-
-
               <img src={this.state.image} height='300' width='370'></img>
                   <h2>{this.state.selectedPlace.title}</h2>
                   <h2>{this.state.selectedPlace.description}</h2>
@@ -179,33 +178,8 @@ export class MapContainer extends Component {
             marker={this.state.newActiveMarker}
             visible={this.state.showingNewInfoWindow}
             onOpen={e => {this.onNewInfoWindowOpen(this.props, e)}}>
-
-            <form>
-              Spot Name <input type='text'/><br/>
-              Bust factor
-              <select>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select> <br/>
-              Spot Photo <input type="file" />
-            </form>
-
-
             <div id="newMarker" />
-
           </InfoWindow>
-
-
-
-
     </Map>
     )
   }
