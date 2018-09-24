@@ -86,8 +86,13 @@ export class MapContainer extends Component {
   }
 
   onSubmittingNewSpot = (e) =>{
-    console.log(e);
+    console.log('SUBMITTED SPOT');
+    const data = new FormData(e.target);
+    console.log(data);
   }
+
+
+
 
   // Allows the buttons on the InfoWindow to work
   onInfoWindowOpen(props, e) {
@@ -119,6 +124,15 @@ export class MapContainer extends Component {
     const submitButton = (
       <Button onClick={this.onSubmittingNewSpot} variant="contained" color="primary">Submit</Button>
     )
+
+    // const form = (
+    //
+    //
+    //
+    // cost wholeForm = (
+    //
+    //   {submitButton}
+    // )
 
     ReactDOM.render(
       submitButton,
@@ -183,6 +197,8 @@ export class MapContainer extends Component {
               </select> <br/>
               Spot Photo <input type="file" />
             </form>
+
+
             <div id="newMarker" />
 
           </InfoWindow>
