@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <MapContainer spots={this.props.skate_spots}/>
+          <MapContainer/>
           <Route exact path="/" component={MapContainer} />
           <Route exact path="/profile" component={Profile} />
         </div>

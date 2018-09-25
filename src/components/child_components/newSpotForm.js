@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getSkateSpots } from '../../action'
 
-export default class newSpotForm extends Component {
+class newSpotForm extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -33,10 +35,11 @@ export default class newSpotForm extends Component {
       }),
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(data=>console.log(data))
+    }).then(r=>r.json()).then(data=>this.props.dispatch(getSkateSpots()))
   }
 
   render(){
+    console.log('hello', this.props);
     return(
       <div>
         <form onSubmit={this.onSubmit}>
@@ -66,3 +69,10 @@ export default class newSpotForm extends Component {
     )
   }
 }
+
+// const mapDispatchToProps = dispatch =>{
+//
+//
+// }
+
+export default connect()(newSpotForm)

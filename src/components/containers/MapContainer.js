@@ -8,6 +8,9 @@ import BookmarkButton from '../child_components/bookmarkButton'
 import SkateSpotPageButton from '../child_components/spotProfileButton'
 import { getSkateSpots } from '../../action'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import {Provider} from 'react-redux'
+import store from '../../store'
 
 class MapContainer extends Component {
   constructor(props){
@@ -27,10 +30,6 @@ class MapContainer extends Component {
     }
 }
 
-  componentDidMount(){
-
-  }
-
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -42,6 +41,7 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) =>{
+    console.log(marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -90,12 +90,15 @@ class MapContainer extends Component {
       </div>
     )
     ReactDOM.render(
-      wholeForm,
+      <Provider store={store}>
+      {wholeForm}
+      </Provider>,
       document.getElementById("newMarker")
     )
   }
 
   render() {
+    console.log(this.props.skateSpots);
     return (
       <Map google={this.props.google}
           style={{width: "100%",height: "100%"}}
@@ -105,7 +108,7 @@ class MapContainer extends Component {
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
-        {data.spots.map(spot => <Marker key={spot.id} onClick={this.onMarkerClick} title={spot.name} image={spot.image} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+        {this.props.skateSpots.map(spot => <Marker key={spot.id} onClick={this.onMarkerClick} title={spot.name} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
           <InfoWindow
               marker={this.state.activeMarker}
@@ -118,19 +121,34 @@ class MapContainer extends Component {
           </InfoWindow>
 
           <InfoWindow
-            marker={this.state.newActiveMarker}
-            visible={this.state.showingNewInfoWindow}
-            onOpen={e => {this.onNewInfoWindowOpen(this.props, e)}}>
-            <div id="newMarker" />
+          marker={this.state.newActiveMarker}
+          visible={this.state.showingNewInfoWindow}
+          onOpen={e => {this.onNewInfoWindowOpen(this.props, e)}}>
+          <div id="newMarker" />
           </InfoWindow>
     </Map>
     )
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    skateSpots: state.skate_spots
+  }
+}
+
+
+const connectedMap = connect(mapStateToProps)(MapContainer)
+
+// export default compose(
+//   connect(mapStateToProps),
+//   GoogleApiWrapper({
+//   apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
+// })
+// )(MapContainer)
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
-})(MapContainer)
+})(connectedMap)
 // AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo
 // AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck
 // AIzaSyDiNwCezSsFJzr1kzCqAwnoOlblT5KXNwQ

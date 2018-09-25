@@ -25,7 +25,7 @@ const initialState = {
       last_name: 'Ahn',
       email: "tonyturestky@gmail.com"
   }
-  
+
 }
 
 export default function reducer(state = initialState, action) {
@@ -33,6 +33,8 @@ export default function reducer(state = initialState, action) {
     case 'GET_USERS':
       return {...state, users: action.payload}
     case 'GET_SKATE_SPOTS':
+      return {...state, skate_spots: action.payload }
+    case 'POST_SKATE_SPOT':
       return {...state, skate_spots: action.payload }
     default:
       return state
