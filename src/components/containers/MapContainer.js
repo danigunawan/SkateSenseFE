@@ -2,10 +2,14 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, { Component } from 'react'
 import data from '../dummy_data'
 import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
 import NewSpotForm from '../child_components/newSpotForm'
+import LikeButton from '../child_components/likeButton'
+import BookmarkButton from '../child_components/bookmarkButton'
+import SkateSpotPageButton from '../child_components/spotProfileButton'
+import { getSkateSpots } from '../../action'
+import { connect } from 'react-redux'
 
-export class MapContainer extends Component {
+class MapContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -19,8 +23,13 @@ export class MapContainer extends Component {
           lng: -117.3286687
         }
       },
-  }
+      spots: []
+    }
 }
+
+  componentDidMount(){
+
+  }
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -59,38 +68,15 @@ export class MapContainer extends Component {
       map.panTo(location);
     };
 
-  onLike = (e) => {
-    console.log('LIKE!')
-  }
 
-  onBookmark = (e) =>{
-    console.log('BOOKMARKED!')
-  }
-
-  onSkateSpotPageClick = (e) =>{
-    console.log('Hit the spot page!')
-  }
-
-  // Allows the buttons on the InfoWindow to work
   onInfoWindowOpen = (props, e) => {
-      const likeButton = (
-          <Button onClick={this.onLike} variant="contained" color="primary">Like</Button>
-      );
-      const bookmarkButton = (
-          <Button onClick={this.onBookmark} variant="contained" color="primary">Bookmark</Button>
-      )
-      const skateSpotPageButton = (
-          <Button onClick={this.onSkateSpotPageClick} variant="contained" color="primary">Spot Profile</Button>
-      )
-
       const btnSet = (
         <div>
-          {likeButton}
-          {bookmarkButton}
-          {skateSpotPageButton}
+          <LikeButton />
+          <BookmarkButton />
+          <SkateSpotPageButton />
         </div>
       )
-
       ReactDOM.render(
         btnSet,
         document.getElementById("iwc")
@@ -103,13 +89,11 @@ export class MapContainer extends Component {
         <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()}/>
       </div>
     )
-
     ReactDOM.render(
       wholeForm,
       document.getElementById("newMarker")
     )
   }
-
 
   render() {
     return (
@@ -145,5 +129,8 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyDiNwCezSsFJzr1kzCqAwnoOlblT5KXNwQ')
+  apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
 })(MapContainer)
+// AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo
+// AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck
+// AIzaSyDiNwCezSsFJzr1kzCqAwnoOlblT5KXNwQ

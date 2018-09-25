@@ -28,7 +28,7 @@ export default class newSpotForm extends Component {
         longitude: this.props.longitude,
         description: this.state.Description,
         bust_factor: this.state.BustValue,
-        photo: this.state.Photo,
+        photo: 'NYC_Black_Hubba',
         user_id: 1
       }),
       headers: {

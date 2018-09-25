@@ -25,6 +25,7 @@ const initialState = {
       last_name: 'Ahn',
       email: "tonyturestky@gmail.com"
   }
+  
 }
 
 export default function reducer(state = initialState, action) {

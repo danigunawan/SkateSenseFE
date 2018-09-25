@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 // import MapContainer from './MapContainer'
 import MapContainer from './containers/MapContainer'
 import { getUsers } from '../action'
+import { getSkateSpots } from '../action'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Profile from './containers/Profile'
 
 class App extends Component {
 
   componentDidMount(){
-    // fetch('http://localhost:3000/api/v1/users').then(r=>r.json()).then(data=>console.log(data))
     this.props.getUsers()
-
+    this.props.getSkateSpots()
   }
 
   render() {
     return (
       <Router>
         <div>
-          <MapContainer />
+          <MapContainer spots={this.props.skate_spots}/>
           <Route exact path="/" component={MapContainer} />
           <Route exact path="/profile" component={Profile} />
         </div>
@@ -29,14 +29,15 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    users: state.users,
+    skate_spots: state.skate_spots
   }
-
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-      getUsers: () => dispatch(getUsers())
+      getUsers: () => dispatch(getUsers()),
+      getSkateSpots: () => dispatch(getSkateSpots())
     }
 }
 
