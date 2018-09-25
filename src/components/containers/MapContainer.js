@@ -12,6 +12,7 @@ import { compose } from 'redux'
 import {Provider} from 'react-redux'
 import store from '../../store'
 
+
 class MapContainer extends Component {
   constructor(props){
     super(props)
@@ -41,7 +42,7 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) =>{
-    console.log(marker);
+    console.log('marker', marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -86,7 +87,7 @@ class MapContainer extends Component {
   onNewInfoWindowOpen = (props, e) => {
     const wholeForm = (
       <div>
-        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()}/>
+        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()} newMarkerClick={this.onMarkerClick}/>
       </div>
     )
     ReactDOM.render(

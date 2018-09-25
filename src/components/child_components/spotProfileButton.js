@@ -1,5 +1,7 @@
 import React from 'react'
 import Button from '@material-ui/core/Button';
+import SkateSpotContainer from '../containers/SkateSpotContainer'
+
 
 
 function onSkateSpotPageClick() {
@@ -7,7 +9,7 @@ function onSkateSpotPageClick() {
 }
 
 const SkateSpotPageButton = () => {
-    return <Button onClick={onSkateSpotPageClick} variant="contained" color="primary">Spot Profile</Button>
+    return <Button href="/spot" onClick={onSkateSpotPageClick} variant="contained" color="primary">Spot Profile</Button>
 }
 
 export default SkateSpotPageButton;

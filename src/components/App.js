@@ -5,7 +5,10 @@ import { getUsers } from '../action'
 import { getSkateSpots } from '../action'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
-import Profile from './containers/Profile'
+import UserProfileContainer from './containers/UserProfileContainer'
+import SkateSpotContainer from './containers/SkateSpotContainer'
+import SignUpContainer from './containers/SignUpContainer'
+import LoginContainer from './containers/LoginContainer'
 
 class App extends Component {
 
@@ -18,9 +21,11 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <MapContainer/>
           <Route exact path="/" component={MapContainer} />
-          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/signup" component={SignUpContainer} />
+          <Route exact path="/login" component={LoginContainer} />
+          <Route exact path="/profile" component={UserProfileContainer} />
+          <Route exact path="/spot" component={SkateSpotContainer} />
         </div>
       </Router>
     )

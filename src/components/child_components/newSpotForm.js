@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getSkateSpots } from '../../action'
+import FlatButton from '@material-ui/core/Button';
 
 class newSpotForm extends Component {
   constructor(props){
@@ -39,7 +40,6 @@ class newSpotForm extends Component {
   }
 
   render(){
-    console.log('hello', this.props);
     return(
       <div>
         <form onSubmit={this.onSubmit}>
@@ -63,7 +63,7 @@ class newSpotForm extends Component {
           Description:
           <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
 
-          <input type="submit" value="Submit"/>
+          <FlatButton type="submit" variant="contained" color="primary">Submit</FlatButton>
         </form>
       </div>
     )
