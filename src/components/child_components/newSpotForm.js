@@ -6,7 +6,8 @@ export default class newSpotForm extends Component {
     this.state={
       SpotName: '',
       BustFactor: '',
-      Photo: ''
+      Photo: '',
+      Description: ''
     }
   }
 
@@ -16,11 +17,26 @@ export default class newSpotForm extends Component {
 
   onSubmit = (e) =>{
     e.preventDefault()
-    console.log('got here!');
+    fetch('http://localhost:3000/api/v1/skate_spots',{
+      method: "POST",
+      body: JSON.stringify({
+        name: this.state.SpotName,
+        country: 'n/a',
+        city: 'n/a',
+        state: 'n/a',
+        latitude: this.props.latitude,
+        longitude: this.props.longitude,
+        description: this.state.Description,
+        bust_factor: this.state.BustValue,
+        photo: this.state.Photo,
+        user_id: 1
+      }),
+      headers: {
+        'Content-Type': 'application/json'}
+    }).then(r=>r.json()).then(data=>console.log(data))
   }
 
   render(){
-    console.log(this.state);
     return(
       <div>
         <form onSubmit={this.onSubmit}>
@@ -41,6 +57,9 @@ export default class newSpotForm extends Component {
           </select><br/>
           Photo:
           <input  name="Photo" value={this.state.Photo} onChange={this.changeEverything} type="file" /><br/>
+          Description:
+          <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
+
           <input type="submit" value="Submit"/>
         </form>
       </div>

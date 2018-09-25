@@ -19,12 +19,8 @@ export class MapContainer extends Component {
           lng: -117.3286687
         }
       },
-      SpotName:'',
-      BustValue:'',
-      Photo: ''
   }
 }
-
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -67,46 +63,12 @@ export class MapContainer extends Component {
     console.log('LIKE!')
   }
 
-
   onBookmark = (e) =>{
     console.log('BOOKMARKED!')
   }
 
   onSkateSpotPageClick = (e) =>{
     console.log('Hit the spot page!')
-  }
-
-  onSubmittingNewSpot = (e) =>{
-    console.log('SUBMITTED SPOT');
-    const data = new FormData(e.target);
-    console.log(data);
-  }
-
-
-  // handleNameChange =(e) => {
-  //   e.preventDefault()
-  //  this.setState({SpotName: e.target.value})
-  //  console.log(this.state.SpotName);
-  // }
-
-
-  submitSpotToBackend = (e) =>{
-    e.preventDefault()
-    fetch('http://http://localhost:3000/api/v1/skate_spots',{
-      method: "POST",
-      body: {
-        id: '',
-        name: '',
-        country: '',
-        city: '',
-        latitude: '',
-        longitude: '',
-        description: '',
-        bust_factor: 0,
-        photo: '',
-        user_id: ''
-      }
-    })
   }
 
   // Allows the buttons on the InfoWindow to work
@@ -136,12 +98,9 @@ export class MapContainer extends Component {
     }
 
   onNewInfoWindowOpen = (props, e) => {
-    // const submitButton = (
-    //   <Button onClick={this.onSubmittingNewSpot} variant="contained" color="primary">Submit</Button>
-    // )
     const wholeForm = (
       <div>
-        <NewSpotForm />
+        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()}/>
       </div>
     )
 
