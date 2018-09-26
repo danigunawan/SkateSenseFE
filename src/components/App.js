@@ -9,6 +9,7 @@ import UserProfileContainer from './containers/UserProfileContainer'
 import SkateSpotContainer from './containers/SkateSpotContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
+import NavBar from './Navbar'
 
 class App extends Component {
 
@@ -19,15 +20,18 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div>
-          <Route exact path="/" component={MapContainer} />
-          <Route exact path="/signup" component={SignUpContainer} />
-          <Route exact path="/login" component={LoginContainer} />
-          <Route exact path="/profile" component={UserProfileContainer} />
-          <Route exact path="/spot" component={SkateSpotContainer} />
-        </div>
-      </Router>
+      <div>
+        <NavBar />
+        <Router>
+          <div>
+            <Route exact path="/" component={MapContainer} />
+            <Route exact path="/signup" component={SignUpContainer} />
+            <Route exact path="/login" component={LoginContainer} />
+            <Route exact path="/profile" component={UserProfileContainer} />
+            <Route exact path="/spot" component={SkateSpotContainer} />
+          </div>
+        </Router>
+    </div>
     )
   }
 }
