@@ -9,52 +9,45 @@ class LikeButton extends Component{
     this.state = {
       like: false,
       markerID: this.props.marker.id,
-      currentUserid: this.props.marker.currentUserid
+      currentUserid: this.props.marker.currentUserid,
+      currentLikeid: 'empty'
     }
   }
 
   componentDidMount(){
     this.props.getUserData()
+    .then(() => {
+      this.checkIfUserLikedPost()
+    })
   }
 
   checkIfUserLikedPost = () =>{
     let data = this.props.userData ? this.props.userData.likes : null
-    if (data != null){
-      data.map(likes=>{
-        if (likes.skate_spot_id === this.state.markerID){
-          console.log('hello');
-        }
-      })
+    if (data !== null){
+      const liked = data.find(likes=>(likes.skate_spot_id === this.state.markerID))
+      liked ? this.setState({like:true, currentLikeid:liked.id}) : null
     }
   }
 
 
   onLike = () => {
-    this.setState({like:true})
-    console.log('LIKED!');
-    // fetch('http://localhost:3000/api/v1/likes',{
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     skate_spot_id:`${this.state.markerID}`,
-    //     user_id: `${this.state.currentUserid}`
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'}
-    // }).then(r=>r.json()).then(data=>console.log(data))
+    fetch('http://localhost:3000/api/v1/likes',{
+      method: "POST",
+      body: JSON.stringify({
+        skate_spot_id:`${this.state.markerID}`,
+        user_id: `${this.state.currentUserid}`
+      }),
+      headers: {
+        'Content-Type': 'application/json'}
+    }).then(r=>r.json()).then(data=>this.setState({like: true, currentLikeid: data.id}))
   }
 
   onUnLike = () => {
-    this.setState({like:false})
-    console.log('UNLIKED!')
-    // fetch('http://localhost:3000/api/v1/likes',{
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     skate_spot_id:1,
-    //     user_id: 1
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'}
-    // }).then(r=>r.json()).then(data=>console.log(data))
+    fetch(`http://localhost:3000/api/v1/likes/${this.state.currentLikeid}`,{
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json'}
+    }).then(r=>r.json()).then(data=>this.setState({like:false, currentLikeid: data.id}))
   }
 
   checkLike = () => {
@@ -62,8 +55,6 @@ class LikeButton extends Component{
   }
 
   render(){
-    console.log('got here!');
-    this.checkIfUserLikedPost()
     return(
       <div>
         {this.checkLike()}
@@ -79,12 +70,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
       getUserData: () => dispatch(getUserData()),
     }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(LikeButton)
