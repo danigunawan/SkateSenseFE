@@ -10,6 +10,16 @@ export function getSkateSpots() {
     }
 }
 
+export function getUserData() {
+
+    return (dispatch) =>{
+      dispatch({type: 'LOADING_DATA'})
+      return fetch('http://localhost:3000/api/v1/users/1').then(r=>r.json()).then(data=>{
+        dispatch({type:'GET_USER_DATA', payload:data})
+        dispatch({type:'LOADED_DATA'})
+      })
+    }
+}
 
 export function postSkateSpots() {
     return (dispatch) =>{

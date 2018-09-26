@@ -42,7 +42,6 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) =>{
-    console.log('marker', marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -73,13 +72,15 @@ class MapContainer extends Component {
   onInfoWindowOpen = (props, e) => {
       const btnSet = (
         <div>
-          <LikeButton />
-          <BookmarkButton />
+          <LikeButton marker={this.state.activeMarker}/>
+          <BookmarkButton marker={this.state.activeMarker}/>
           <SkateSpotPageButton />
         </div>
       )
       ReactDOM.render(
-        btnSet,
+        <Provider store={store}>
+          {btnSet}
+        </Provider>,
         document.getElementById("iwc")
       )
     }
@@ -92,14 +93,13 @@ class MapContainer extends Component {
     )
     ReactDOM.render(
       <Provider store={store}>
-      {wholeForm}
+        {wholeForm}
       </Provider>,
       document.getElementById("newMarker")
     )
   }
 
   render() {
-    console.log(this.props.skateSpots);
     return (
       <Map google={this.props.google}
           style={{width: "100%",height: "100%"}}
@@ -109,7 +109,7 @@ class MapContainer extends Component {
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
-        {this.props.skateSpots.map(spot => <Marker key={spot.id} onClick={this.onMarkerClick} title={spot.name} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
           <InfoWindow
               marker={this.state.activeMarker}

@@ -24,7 +24,8 @@ const initialState = {
       first_name: 'John',
       last_name: 'Ahn',
       email: "tonyturestky@gmail.com"
-  }
+  },
+  loadingData: false
 
 }
 
@@ -36,6 +37,12 @@ export default function reducer(state = initialState, action) {
       return {...state, skate_spots: action.payload }
     case 'POST_SKATE_SPOT':
       return {...state, skate_spots: action.payload }
+    case 'GET_USER_DATA':
+      return {...state, user_data: action.payload }
+    case 'LOADING_DATA':
+      return {...state, loadingData: true }
+    case 'LOADED_DATA':
+      return {...state, loadingData: false }
     default:
       return state
   }

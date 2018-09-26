@@ -70,9 +70,5 @@ class newSpotForm extends Component {
   }
 }
 
-// const mapDispatchToProps = dispatch =>{
-//
-//
-// }
 
 export default connect()(newSpotForm)

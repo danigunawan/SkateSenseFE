@@ -1,6 +1,7 @@
 import React from 'react'
 
-const SkateSpotContainer = () =>{
+const SkateSpotContainer = (props) =>{
+  console.log(props);
   return(
     <h1>Spot page</h1>
   )

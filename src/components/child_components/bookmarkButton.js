@@ -5,22 +5,24 @@ class BookmarkButton extends Component{
   constructor(props){
     super(props)
     this.state = {
-      bookmarked: false
+      bookmarked: false,
+      markerID: this.props.marker.id,
+      currentUserid: this.props.marker.currentUserid
     }
   }
 
   onBookmark = () => {
     this.setState({bookmarked:true})
     console.log('BOOKMARKED!')
-    // fetch('http://localhost:3000/api/v1/bookmarks',{
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     skate_spot_id:1,
-    //     user_id: 1
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'}
-    // }).then(r=>r.json()).then(data=>console.log(data))
+    fetch('http://localhost:3000/api/v1/bookmarks',{
+      method: "POST",
+      body: JSON.stringify({
+        skate_spot_id:`${this.state.markerID}`,
+        user_id: `${this.state.currentUserid}`
+      }),
+      headers: {
+        'Content-Type': 'application/json'}
+    }).then(r=>r.json()).then(data=>console.log(data))
   }
 
   onUnBookmark = () => {
@@ -42,7 +44,6 @@ class BookmarkButton extends Component{
   }
 
   render(){
-    console.log(this.state.bookmarked);
     return(
       this.checkBookmark()
     )
