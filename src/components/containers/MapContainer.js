@@ -12,7 +12,6 @@ import { compose } from 'redux'
 import {Provider} from 'react-redux'
 import store from '../../store'
 
-
 class MapContainer extends Component {
   constructor(props){
     super(props)
@@ -100,6 +99,7 @@ class MapContainer extends Component {
   }
 
   render() {
+    // console.log(this.state.selectedPlace);
     return (
       <Map google={this.props.google}
           style={{width: "100%",height: "100%"}}
@@ -109,7 +109,7 @@ class MapContainer extends Component {
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
-        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
           <InfoWindow
               marker={this.state.activeMarker}
@@ -117,7 +117,7 @@ class MapContainer extends Component {
               onOpen={e => {this.onInfoWindowOpen(this.props, e)}}>
               <img src={this.state.image} height='300' width='370'></img>
                   <h2>{this.state.selectedPlace.title}</h2>
-                  <h2>{this.state.selectedPlace.description}</h2>
+                  <h4>{this.state.selectedPlace.description}</h4>
               <div id="iwc" />
           </InfoWindow>
 
@@ -138,15 +138,7 @@ const mapStateToProps = state => {
   }
 }
 
-
 const connectedMap = connect(mapStateToProps)(MapContainer)
-
-// export default compose(
-//   connect(mapStateToProps),
-//   GoogleApiWrapper({
-//   apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
-// })
-// )(MapContainer)
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
 })(connectedMap)

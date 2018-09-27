@@ -9,7 +9,7 @@ function onSkateSpotPageClick() {
 }
 
 const SkateSpotPageButton = () => {
-    return <Button href="/spot" onClick={onSkateSpotPageClick} variant="contained" color="primary">Spot Profile</Button>
+    return <Button href="/spot" onClick={onSkateSpotPageClick} variant="contained" color="primary">Spot Page</Button>
 }
 
 export default SkateSpotPageButton;

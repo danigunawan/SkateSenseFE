@@ -8,7 +8,12 @@ import Input from '@material-ui/core/Input';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import BookMarkIcon from '@material-ui/icons/Bookmark'
+import MapIcon from '@material-ui/icons/Map'
+import ProfileIcon from '@material-ui/icons/Person'
 import SearchIcon from '@material-ui/icons/Search';
+import skateboard from '../assets/skateboard.png'
+
 
 const styles = theme => ({
   root: {
@@ -17,8 +22,16 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginLeft: -12,
+  mapButton: {
+    marginLeft: 5,
+    marginRight: 20,
+  },
+  bookmarkButton: {
+    marginLeft: -20,
+    marginRight: 20,
+  },
+  profileButton: {
+    marginLeft: -20,
     marginRight: 20,
   },
   title: {
@@ -72,16 +85,23 @@ const styles = theme => ({
 
 function NavBar(props) {
   const { classes } = props;
+  const skateboard = require(`../assets/skateboard.png`)
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="white">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
-            Skate Sense
+            <img src={`${skateboard}`} width='50' height='50' />
           </Typography>
+          <IconButton href="/" className={classes.mapButton} color="inherit" aria-label="Open drawer">
+          <MapIcon />
+          </IconButton>
+          <IconButton href="/profile" className={classes.profileButton} color="inherit" aria-label="Open drawer">
+            <ProfileIcon />
+          </IconButton>
+          <IconButton className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
+            <BookMarkIcon />
+          </IconButton>
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
