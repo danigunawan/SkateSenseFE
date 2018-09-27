@@ -1,6 +1,5 @@
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, { Component } from 'react'
-import data from '../dummy_data'
 import ReactDOM from 'react-dom';
 import NewSpotForm from '../child_components/newSpotForm'
 import LikeButton from '../child_components/likeButton'
@@ -11,6 +10,8 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {Provider} from 'react-redux'
 import store from '../../store'
+import IconButton from '@material-ui/core/IconButton';
+import DirectionsIcon from '@material-ui/icons/Directions'
 
 class MapContainer extends Component {
   constructor(props){
@@ -19,7 +20,7 @@ class MapContainer extends Component {
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
-      image: require(`../../assets/hollywood16.png`),
+      image: '',
       fields: {
         location: {
           lat: 33.1631037,
@@ -45,7 +46,7 @@ class MapContainer extends Component {
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
-      image: require(`../../assets/${marker.image}.png`),
+      image: marker.image.url,
       showingNewInfoWindow: false
     })}
 
@@ -74,6 +75,14 @@ class MapContainer extends Component {
           <LikeButton marker={this.state.activeMarker}/>
           <BookmarkButton marker={this.state.activeMarker}/>
           <SkateSpotPageButton />
+
+          <IconButton href={`https://www.google.com/maps/dir//${this.state.activeMarker.position.lat()},${this.state.activeMarker.position.lng()}`}
+            target="_blank"
+            color="inherit"
+            aria-label="Open drawer"
+            >
+            <DirectionsIcon />
+          </IconButton>
         </div>
       )
       ReactDOM.render(
@@ -99,7 +108,6 @@ class MapContainer extends Component {
   }
 
   render() {
-    // console.log(this.state.selectedPlace);
     return (
       <Map google={this.props.google}
           style={{width: "100%",height: "100%"}}
@@ -109,13 +117,14 @@ class MapContainer extends Component {
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
-        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.photo} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.skatephoto} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
           <InfoWindow
               marker={this.state.activeMarker}
               visible={this.state.showingInfoWindow}
               onOpen={e => {this.onInfoWindowOpen(this.props, e)}}>
-              <img src={this.state.image} height='300' width='370'></img>
+
+              <img src={`http://localhost:3000${this.state.image}`} height='300' width='370' alt='yo'></img>
                   <h2>{this.state.selectedPlace.title}</h2>
                   <h4>{this.state.selectedPlace.description}</h4>
               <div id="iwc" />

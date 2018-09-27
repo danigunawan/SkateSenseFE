@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getSkateSpots } from '../../action'
 import FlatButton from '@material-ui/core/Button';
+import Input from 'react'
 
 class newSpotForm extends Component {
   constructor(props){
@@ -19,25 +20,33 @@ class newSpotForm extends Component {
     console.log(this.state);
   }
 
+  handleFileUpload = (e) => {
+  this.setState({
+    Photo: e.target.files[0],
+  })
+  // debugger
+  // console.log(e.target.files);
+};
+
   onSubmit = (e) =>{
     e.preventDefault()
-    // fetch('http://localhost:3000/api/v1/skate_spots',{
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     name: this.state.SpotName,
-    //     country: 'n/a',
-    //     city: 'n/a',
-    //     state: 'n/a',
-    //     latitude: this.props.latitude,
-    //     longitude: this.props.longitude,
-    //     description: this.state.Description,
-    //     bust_factor: this.state.BustValue,
-    //     photo: 'NYC_Black_Hubba',
-    //     user_id: 1
-    //   }),
-    //   headers: {
-    //     'Content-Type': 'application/json'}
-    // }).then(r=>r.json()).then(data=>this.props.dispatch(getSkateSpots()))
+    let data = new FormData()
+        data.append('name', this.state.SpotName)
+        data.append('country', 'n/a')
+        data.append('city', 'n/a')
+        data.append('state', 'n/a')
+        data.append('latitude', this.props.latitude)
+        data.append('longitude', this.props.longitude)
+        data.append('description', this.state.Description)
+        data.append('bust_factor', this.state.BustValue)
+        data.append('skatephoto', this.state.Photo)
+        data.append('user_id', 1)
+
+      fetch(`http://localhost:3000/api/v1/skate_spots`, {
+        method: 'POST',
+        body: data,
+        }
+      ).then(r=>r.json()).then(data=>console.log(data))
   }
 
   render(){
@@ -60,7 +69,7 @@ class newSpotForm extends Component {
             <option value="10">10</option>
           </select><br/>
           Photo:
-          <input  name="Photo" value={this.state.Photo} onChange={this.changeEverything} type="file" /><br/>
+          <input name="Photo" onChange={this.handleFileUpload} type="file" /><br/>
           Description:
           <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
 
@@ -73,3 +82,21 @@ class newSpotForm extends Component {
 
 
 export default connect()(newSpotForm)
+
+// fetch('http://localhost:3000/api/v1/skate_spots',{
+//   method: "POST",
+//   body: JSON.stringify({
+//     name: this.state.SpotName,
+//     country: 'n/a',
+//     city: 'n/a',
+//     state: 'n/a',
+//     latitude: this.props.latitude,
+//     longitude: this.props.longitude,
+//     description: this.state.Description,
+//     bust_factor: this.state.BustValue,
+//     photo: 'NYC_Black_Hubba',
+//     user_id: 1
+//   }),
+//   headers: {
+//     'Content-Type': 'application/json'}
+// }).then(r=>r.json()).then(data=>this.props.dispatch(getSkateSpots()))

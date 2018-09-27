@@ -9,6 +9,7 @@ import UserProfileContainer from './containers/UserProfileContainer'
 import SkateSpotContainer from './containers/SkateSpotContainer'
 import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
+import BookmarkContainer from './containers/BookmarkContainer.js'
 import NavBar from './Navbar'
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path="/" component={MapContainer} />
+            <Route exact path="/bookmarks" component={BookmarkContainer} />
             <Route exact path="/signup" component={SignUpContainer} />
             <Route exact path="/login" component={LoginContainer} />
             <Route exact path="/profile" component={UserProfileContainer} />
@@ -35,6 +37,7 @@ class App extends Component {
     )
   }
 }
+
 
 function mapStateToProps(state) {
   return {

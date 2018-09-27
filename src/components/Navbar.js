@@ -7,12 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
 import BookMarkIcon from '@material-ui/icons/Bookmark'
 import MapIcon from '@material-ui/icons/Map'
 import ProfileIcon from '@material-ui/icons/Person'
 import SearchIcon from '@material-ui/icons/Search';
-import skateboard from '../assets/skateboard.png'
 
 
 const styles = theme => ({
@@ -99,7 +97,7 @@ function NavBar(props) {
           <IconButton href="/profile" className={classes.profileButton} color="inherit" aria-label="Open drawer">
             <ProfileIcon />
           </IconButton>
-          <IconButton className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
+          <IconButton href="/bookmarks" className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
             <BookMarkIcon />
           </IconButton>
           <div className={classes.grow} />
