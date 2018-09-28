@@ -2,20 +2,21 @@ import React, { Component } from 'react'
 import { getUserData } from '../../action'
 import { getSkateSpots } from '../../action'
 import { connect } from 'react-redux'
+import SkateSpotItem from '../child_components/SkateSpotItem'
 
 
 class BookmarkContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-      myBookmarks: '',
-      allSkateSpots: ''
+
     }
   }
   render(){
-    console.log(this.state)
     return(
-      <h1>Bookmark page</h1>
+      <div>
+        { this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem spot={spot} /> ): null }
+      </div>
     )
   }
 
@@ -23,21 +24,21 @@ class BookmarkContainer extends Component {
   async componentDidMount(){
     const response = await this.props.getUserData()
     const response2 = await this.props.getSkateSpots()
-    this.setState({ myBookmarks: response.bookmarks, allSkateSpots: response2 },() => this.getBookmarkedSpots())
+    this.setState({ myBookmarks: response.skate_spots})
   }
+
+
+
+
 
 
   getBookmarkedSpots = () =>{
     if (this.state.allSkateSpots.payload.length > 0){
-      let myBookmarkedSpot = this.state.allSkateSpots.payload.filter(skateSpot => {
-        return this.state.myBookmarks.filter(bookmark => {
-          return bookmark.skate_spot_id === skateSpot.id
-        })
-      })
-      console.log(myBookmarkedSpot)
+
+      console.log('mybookmarked spot')
+      // this.setState({myBookmarkedSpots: [...this.state.myBookmarkedSpots, myBookmarkedSpot]})
     }
   }
-
 
 }
 
