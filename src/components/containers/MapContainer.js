@@ -31,11 +31,18 @@ class MapContainer extends Component {
     }
 }
 
-  // getGeolocation = () => {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     do_something(position.coords.latitude, position.coords.longitude);
-  //   })
-  // }
+  componentWillReceiveProps(nextProps) {
+     if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
+         this.setState({
+           fields:{
+             location:{
+               lat: nextProps.geoLocation.latitude,
+               lng: nextProps.geoLocation.longitude
+             }
+           }
+         })
+     }
+   }
 
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
@@ -44,13 +51,11 @@ class MapContainer extends Component {
         activeMarker: null,
         showingNewInfoWindow: false
       })
-      console.log(this.state)
+
     }
   }
 
   onMarkerClick = (props, marker, e) =>{
-    console.log('OnMarkerCick props',props);
-    console.log('OnMarkerCick marker', marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
@@ -60,7 +65,6 @@ class MapContainer extends Component {
     })}
 
   newMarkerCreation = (props) =>{
-    // console.log('newMarkerCreation props', props.payload[props.payload.length-1])
     props = props.payload[props.payload.length-1]
     this.setState({
       selectedPlace:props,
@@ -69,8 +73,6 @@ class MapContainer extends Component {
       image: props.skatephoto.url,
       showingNewInfoWindow: false
     })
-    console.log('newactivemarker', this.state.newActiveMarker);
-    console.log('regmarker', this.state.activeMarker);
   }
 
   newMarkerClick = (props, marker, e) =>{
@@ -120,7 +122,7 @@ class MapContainer extends Component {
   onNewInfoWindowOpen = (props, e) => {
     const wholeForm = (
       <div>
-        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()} newMarkerCreation={this.newMarkerCreation}/>
+        <NewSpotForm latitude={this.state.fields.location.lat} longitude={this.state.fields.location.lng} newMarkerCreation={this.newMarkerCreation}/>
       </div>
     )
     ReactDOM.render(
@@ -137,6 +139,7 @@ class MapContainer extends Component {
           style={{width: "100%",height: "100%"}}
           initialCenter={{lat: 33.1631037,lng: -117.3286687}}
           zoom={14}
+          center={{lat: this.state.fields.location.lat, lng: this.state.fields.location.lng}}
           onClick={(t, map, c) => this.addMarker(c.latLng, map)}>
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
@@ -167,7 +170,8 @@ class MapContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    skateSpots: state.skate_spots
+    skateSpots: state.skate_spots,
+    geoLocation: state.geoLocation
   }
 }
 

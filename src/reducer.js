@@ -43,6 +43,8 @@ export default function reducer(state = initialState, action) {
       return {...state, loadingData: true }
     case 'LOADED_DATA':
       return {...state, loadingData: false }
+    case 'GET_USER_GEOLOCATION':
+      return {...state, geoLocation: action.payload }
     default:
       return state
   }

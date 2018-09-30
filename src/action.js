@@ -22,6 +22,21 @@ export function getUserData() {
     }
 }
 
+export function getGeolocation() {
+  return (dispatch) => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      let data = {latitude: position.coords.latitude, longitude:position.coords.longitude}
+      dispatch({type: 'GET_USER_GEOLOCATION', payload:data})
+      return data
+    })
+  }
+}
+
+function functionName() {
+
+}
+
+
 export function postSkateSpots() {
     return (dispatch) =>{
       return fetch('http://localhost:3000/api/v1/skate_spots',{

@@ -12,6 +12,9 @@ import MapIcon from '@material-ui/icons/Map'
 import ProfileIcon from '@material-ui/icons/Person'
 import SearchIcon from '@material-ui/icons/Search';
 import GeoLocationIcon from '@material-ui/icons/MyLocation'
+import { getGeolocation } from '../action'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 
 const styles = theme => ({
   root: {
@@ -106,7 +109,7 @@ function NavBar(props) {
             <BookMarkIcon />
           </IconButton>
 
-          <IconButton  className={classes.GeoLocationButton} color="inherit" aria-label="Open drawer">
+          <IconButton onClick={props.getGeolocation} className={classes.GeoLocationButton} color="inherit" aria-label="Open drawer">
             <GeoLocationIcon />
           </IconButton>
 
@@ -134,4 +137,24 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar);
+
+const mapStateToProps = (state) => {
+  return {
+    geoLocation: state.geoLocation,
+    loadingData: state.loadingData
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      getGeolocation: () => dispatch(getGeolocation()),
+    }
+}
+
+
+
+const stylesMap = withStyles(styles)
+
+const connectMap = connect(mapStateToProps, mapDispatchToProps)
+
+export default compose(stylesMap,connectMap)(NavBar)
