@@ -11,7 +11,7 @@ import BookMarkIcon from '@material-ui/icons/Bookmark'
 import MapIcon from '@material-ui/icons/Map'
 import ProfileIcon from '@material-ui/icons/Person'
 import SearchIcon from '@material-ui/icons/Search';
-
+import GeoLocationIcon from '@material-ui/icons/MyLocation'
 
 const styles = theme => ({
   root: {
@@ -29,6 +29,10 @@ const styles = theme => ({
     marginRight: 20,
   },
   profileButton: {
+    marginLeft: -20,
+    marginRight: 20,
+  },
+  GeoLocationButton: {
     marginLeft: -20,
     marginRight: 20,
   },
@@ -88,8 +92,9 @@ function NavBar(props) {
     <div className={classes.root}>
       <AppBar position="static" color="white">
         <Toolbar>
+        SkateSense
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
-            <img src={`${skateboard}`} width='50' height='50' />
+            <img src={`${skateboard}`} alt='yo' width='50' height='50' />
           </Typography>
           <IconButton href="/" className={classes.mapButton} color="inherit" aria-label="Open drawer">
           <MapIcon />
@@ -100,6 +105,11 @@ function NavBar(props) {
           <IconButton href="/bookmarks" className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
             <BookMarkIcon />
           </IconButton>
+
+          <IconButton  className={classes.GeoLocationButton} color="inherit" aria-label="Open drawer">
+            <GeoLocationIcon />
+          </IconButton>
+
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>

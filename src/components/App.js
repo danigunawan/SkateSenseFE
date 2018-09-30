@@ -20,6 +20,7 @@ class App extends Component {
     this.props.getUsers()
     this.props.getSkateSpots()
   }
+ 
 
   render() {
     return (

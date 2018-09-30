@@ -23,10 +23,10 @@ class SkateSpotItem extends Component{
   }
 //
     render(){
-      console.log('MY PROPS', this.props.spot.longitude);
       return(
         <div>
           <center>
+            <h1> Bookmarks </h1>
             <h2>{this.props.spot.name}</h2>
               <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} height='300' width='400'/>
             <h3>{this.props.spot.description}</h3><br/>

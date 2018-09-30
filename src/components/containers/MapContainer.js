@@ -31,6 +31,12 @@ class MapContainer extends Component {
     }
 }
 
+  // getGeolocation = () => {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     do_something(position.coords.latitude, position.coords.longitude);
+  //   })
+  // }
+
   onMapClicked = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -38,17 +44,34 @@ class MapContainer extends Component {
         activeMarker: null,
         showingNewInfoWindow: false
       })
+      console.log(this.state)
     }
   }
 
   onMarkerClick = (props, marker, e) =>{
+    console.log('OnMarkerCick props',props);
+    console.log('OnMarkerCick marker', marker);
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
       image: marker.image.url,
-      showingNewInfoWindow: false
+      showingNewInfoWindow: false,
     })}
+
+  newMarkerCreation = (props) =>{
+    // console.log('newMarkerCreation props', props.payload[props.payload.length-1])
+    props = props.payload[props.payload.length-1]
+    this.setState({
+      selectedPlace:props,
+      activeMarker: this.state.newActiveMarker,
+      showingInfoWindow: true,
+      image: props.skatephoto.url,
+      showingNewInfoWindow: false
+    })
+    console.log('newactivemarker', this.state.newActiveMarker);
+    console.log('regmarker', this.state.activeMarker);
+  }
 
   newMarkerClick = (props, marker, e) =>{
     this.setState({
@@ -60,6 +83,7 @@ class MapContainer extends Component {
 
   addMarker = (location, map) => {
     this.setState(prev => ({
+      showingInfoWindow: false,
       fields: {
         ...prev.fields,
         location
@@ -96,7 +120,7 @@ class MapContainer extends Component {
   onNewInfoWindowOpen = (props, e) => {
     const wholeForm = (
       <div>
-        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()} newMarkerClick={this.onMarkerClick}/>
+        <NewSpotForm latitude={this.state.fields.location.lat()} longitude={this.state.fields.location.lng()} newMarkerCreation={this.newMarkerCreation}/>
       </div>
     )
     ReactDOM.render(

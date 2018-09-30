@@ -20,17 +20,10 @@ class BookmarkContainer extends Component {
     )
   }
 
-
   async componentDidMount(){
     const response = await this.props.getUserData()
-    const response2 = await this.props.getSkateSpots()
     this.setState({ myBookmarks: response.skate_spots})
   }
-
-
-
-
-
 
   getBookmarkedSpots = () =>{
     if (this.state.allSkateSpots.payload.length > 0){
@@ -41,8 +34,6 @@ class BookmarkContainer extends Component {
   }
 
 }
-
-
 
 
 const mapStateToProps = (state) => {
