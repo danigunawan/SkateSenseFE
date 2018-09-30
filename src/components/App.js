@@ -12,21 +12,12 @@ import LoginContainer from './containers/LoginContainer'
 import BookmarkContainer from './containers/BookmarkContainer.js'
 import NavBar from './Navbar'
 
-const geoLocation = {
-    latitude: 33.1631037,
-    longitude: -117.3286687
-    }
-
-
 class App extends Component {
 
   componentDidMount(){
     this.props.getUsers()
     this.props.getSkateSpots()
   }
-
-
-
 
   render() {
     return (
@@ -46,7 +37,6 @@ class App extends Component {
     )
   }
 }
-
 
 function mapStateToProps(state) {
   return {

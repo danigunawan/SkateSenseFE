@@ -26,15 +26,14 @@ class newSpotForm extends Component {
 };
 
   onSubmit = (e) =>{
-    console.log(this.props);
     e.preventDefault()
     let data = new FormData()
         data.append('name', this.state.SpotName)
         data.append('country', 'n/a')
         data.append('city', 'n/a')
         data.append('state', 'n/a')
-        data.append('latitude', this.props.latitude)
-        data.append('longitude', this.props.longitude)
+        data.append('latitude', this.props.latitude())
+        data.append('longitude', this.props.longitude())
         data.append('description', this.state.Description)
         data.append('bust_factor', this.state.BustValue)
         data.append('skatephoto', this.state.Photo)

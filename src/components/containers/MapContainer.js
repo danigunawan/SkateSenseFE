@@ -32,15 +32,19 @@ class MapContainer extends Component {
 }
 
   componentWillReceiveProps(nextProps) {
-     if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
-         this.setState({
-           fields:{
-             location:{
-               lat: nextProps.geoLocation.latitude,
-               lng: nextProps.geoLocation.longitude
+    console.log('nextPROPS', nextProps);
+      if (nextProps.geoLocation == 'undefined'){
+        console.log('NEXTPROPS.GEOLOCATION IS UNDEFINED')
+       if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
+           this.setState({
+             fields:{
+               location:{
+                 lat: nextProps.geoLocation.latitude,
+                 lng: nextProps.geoLocation.longitude
+               }
              }
-           }
-         })
+          })
+       }
      }
    }
 
@@ -134,6 +138,7 @@ class MapContainer extends Component {
   }
 
   render() {
+    console.log('INCOMING SKATE SPOTS', this.props.skateSpots);
     return (
       <Map google={this.props.google}
           style={{width: "100%",height: "100%"}}

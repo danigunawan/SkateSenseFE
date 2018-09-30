@@ -5,6 +5,7 @@ export function getUsers() {
 }
 
 export function getSkateSpots() {
+  console.log('GETTING SKATE SPOTS!');
     return (dispatch) =>{
       return fetch('http://localhost:3000/api/v1/skate_spots').then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
     }
@@ -26,6 +27,7 @@ export function getGeolocation() {
   return (dispatch) => {
     navigator.geolocation.getCurrentPosition(function(position) {
       let data = {latitude: position.coords.latitude, longitude:position.coords.longitude}
+      console.log(data)
       dispatch({type: 'GET_USER_GEOLOCATION', payload:data})
       return data
     })

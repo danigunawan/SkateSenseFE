@@ -15,6 +15,7 @@ import GeoLocationIcon from '@material-ui/icons/MyLocation'
 import { getGeolocation } from '../action'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { getSkateSpots } from '../action'
 
 const styles = theme => ({
   root: {
@@ -87,6 +88,9 @@ const styles = theme => ({
     },
   },
 });
+function logChange(e) {
+    console.log(e.target.value)
+}
 
 function NavBar(props) {
   const { classes } = props;
@@ -125,6 +129,7 @@ function NavBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+              onChange={logChange}
             />
           </div>
         </Toolbar>
@@ -141,6 +146,7 @@ NavBar.propTypes = {
 const mapStateToProps = (state) => {
   return {
     geoLocation: state.geoLocation,
+    skate_spots: state.skate_spots,
     loadingData: state.loadingData
   }
 }
@@ -148,6 +154,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       getGeolocation: () => dispatch(getGeolocation()),
+      getSkateSpots: () => dispatch(getSkateSpots())
     }
 }
 
