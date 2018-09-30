@@ -11,17 +11,13 @@ class SkateSpotItem extends Component{
     }
   }
 
-  photo = () => {
-    if (typeof(this.props.spot.skatephoto.url) === 'undefined') {
-      return <h1>photo is undefined</h1>
-    }
-  }
+
 
 
   async componentDidMount(){
     await this.setState({spot: this.props.spot, spotphoto: this.props.spot.skatephoto})
   }
-//
+
     render(){
       return(
         <div>
