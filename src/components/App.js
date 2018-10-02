@@ -22,9 +22,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
         <Router>
           <div>
+            <NavBar />
             <Route exact path="/" component={MapContainer} />
             <Route exact path="/bookmarks" component={BookmarkContainer}  />
             <Route exact path="/signup" component={SignUpContainer} />

@@ -17,6 +17,7 @@ import { logSearchTerm } from '../action'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getSkateSpots } from '../action'
+import { withRouter } from  'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -92,8 +93,6 @@ const styles = theme => ({
     },
   },
 });
-
-let currentURL = window.location.href
 
 function NavBar(props) {
   const { classes } = props;
@@ -172,4 +171,4 @@ const stylesMap = withStyles(styles)
 
 const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-export default compose(stylesMap,connectMap)(NavBar)
+export default compose(stylesMap, connectMap,  withRouter)(NavBar)

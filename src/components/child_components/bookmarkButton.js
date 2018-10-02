@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { getUserData } from '../../action'
 import { connect } from 'react-redux'
 
+
 class BookmarkButton extends Component{
   constructor(props){
     super(props)
@@ -12,7 +13,6 @@ class BookmarkButton extends Component{
       currentUserid: this.props.marker.currentUserid,
       currentBookmarkid: 'empty'
     }
-    console.log('bookmark button props', window.location.href);
   }
 
 

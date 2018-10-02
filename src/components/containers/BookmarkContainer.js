@@ -22,9 +22,40 @@ class BookmarkContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
-
+      myBookmarks:'',
+      filteredArray:'',
+      term:''
     }
   }
+
+  componentWillReceiveProps(nextProps){
+    // console.log('SEARCH TERM', nextProps.logSearchTerm)
+    this.handleSearch(nextProps.logSearchTerm)
+  }
+
+  handleSearch = (term) =>{
+    this.setState({
+      term: term
+    })
+  }
+
+  renderBookmarks = () =>{
+    if (this.state.term === '' || this.state.term === undefined && this.state.myBookmarks !== undefined){
+      return(
+      <Grid justify='center' container spacing={24}>
+          {this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem key={spot.id} spot={spot} />): null}
+      </Grid>
+      )
+    }else {
+      let filteredArray = this.state.myBookmarks.filter(bookmark => bookmark.name.toLowerCase().includes(this.state.term) || bookmark.description.toLowerCase().includes(this.state.term))
+      return(
+        <Grid justify='center' container spacing={24}>
+          {filteredArray.map(spot => <SkateSpotItem key={spot.id} spot={spot}/>)}
+        </Grid>
+      )
+    }
+  }
+
   render(){
     const { classes } = this.props;
     return(
@@ -35,9 +66,7 @@ class BookmarkContainer extends Component {
           </Typography>
           </center>
 
-        <Grid justify='center' container spacing={24}>
-          { this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem key={spot.id} spot={spot} /> ): null }
-        </Grid>
+          {this.renderBookmarks()}
 
       </div>
     )
@@ -63,7 +92,8 @@ const mapStateToProps = (state) => {
   return {
     userData: state.user_data,
     skateSpots: state.skateSpots,
-    loadingData: state.loadingData
+    loadingData: state.loadingData,
+    logSearchTerm: state.logSearchTerm
   }
 }
 
