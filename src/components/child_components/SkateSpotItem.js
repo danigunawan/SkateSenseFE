@@ -8,22 +8,23 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions'
 import BookMarkButton from './bookmarkButton.js'
+import BottomNavigation from '@material-ui/core/BottomNavigation';
 
 const styles = theme => ({
   title:{
-    fontSize: 25,
-    // fontFamily: 'gurajada',
+    fontSize: 18,
     fontWeight: 'bold',
     wordWrap: 'break-word',
     whiteSpace: 'normal'
   },
   root: {
     flexGrow: 1,
-    maxWidth: 500,
+    maxWidth: 300,
+    height: 400,
     padding: theme.spacing.unit * 2,
-    margin: 20,
+    margin: 5,
     wordWrap: 'break-word',
-    whiteSpace: 'normal'
+    whiteSpace: 'normal',
   },
   description:{
     fontSize: 20,
@@ -31,14 +32,14 @@ const styles = theme => ({
     whiteSpace: 'normal',
   },
   image: {
-    width: 128,
-    height: 100,
+    width: 64,
+    height: 50,
   },
   img: {
     margin: 'auto',
     display: 'block',
     maxWidth: '100%',
-    maxHeight: '100%',
+    maxHeight: '60%',
   },
 });
 
@@ -66,19 +67,30 @@ class SkateSpotItem extends Component{
           <Paper className={classes.root}>
             <Typography className={classes.title}>
             {this.props.spot.name}
-            </Typography><br/><br/><br/><br/>
-            <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} height='300' width='400'/>
+            </Typography>
+            <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} className={classes.img} height='300' width='400'/>
             <Typography className={classes.description} style={{wordWrap: 'break-word', whiteSpace: 'normal'}}>
               {this.props.spot.description}
             </Typography>
-              <IconButton href={`https://www.google.com/maps/dir//${this.props.spot.latitude},${this.props.spot.longitude}`}
-                target="_blank"
-                color="inherit"
-                aria-label="Open drawer"
-                >
-                <DirectionsIcon />
-              </IconButton>
-              <BookMarkButton marker={this.props.spot} changeState={this.changeState}/>
+
+
+            <Grid container spacing={12} style={{display: 'inline-flex', verticalAlign: 'middle'}}>
+              <Grid item xs={6}>
+                <BookMarkButton marker={this.props.spot} changeState={this.changeState} style={{marginBottom:10}} />
+              </Grid>
+
+              <Grid item xs={6} >
+                <IconButton href={`https://www.google.com/maps/dir//${this.props.spot.latitude},${this.props.spot.longitude}`}
+                  target="_blank"
+                  color="inherit"
+                  aria-label="Open drawer"
+                  style={{ bottom: 0}}
+                  >
+                  <DirectionsIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+
           </Paper>
       </Grid>
       )

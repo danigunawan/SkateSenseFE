@@ -42,14 +42,14 @@ class BookmarkContainer extends Component {
   renderBookmarks = () =>{
     if (this.state.term === '' || this.state.term === undefined && this.state.myBookmarks !== undefined){
       return(
-      <Grid justify='center' container spacing={24}>
+      <Grid justify='space-evenly' container spacing={24}>
           {this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem key={spot.id} spot={spot} />): null}
       </Grid>
       )
     }else {
       let filteredArray = this.state.myBookmarks.filter(bookmark => bookmark.name.toLowerCase().includes(this.state.term) || bookmark.description.toLowerCase().includes(this.state.term))
       return(
-        <Grid justify='center' container spacing={24}>
+        <Grid justify='space-evenly' container spacing={24}>
           {filteredArray.map(spot => <SkateSpotItem key={spot.id} spot={spot}/>)}
         </Grid>
       )
@@ -63,7 +63,7 @@ class BookmarkContainer extends Component {
         <center>
           <Typography className={classes.title} variant="title">
             Bookmarks
-          </Typography>
+          </Typography><br/><br/>
           </center>
 
           {this.renderBookmarks()}

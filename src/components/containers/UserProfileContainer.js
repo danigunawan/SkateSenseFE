@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 
 const styles = {
   card: {
-    marginTop: 200,
+    marginTop: 100,
     display: 'flex',
     width: 400,
     flexWrap: 'wrap'
@@ -128,7 +128,7 @@ class UserProfileContainer extends Component {
 
         </CardContent>
         <CardActions>
-          <Button onClick={this.onSubmit} size="large">Submit</Button>
+          <Button onClick={this.onSubmit} color={'secondary'} size="large">Submit</Button>
         </CardActions>
       </Card>
       </center>
