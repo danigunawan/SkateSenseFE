@@ -38,15 +38,40 @@ class MapContainer extends Component {
       },
       spots: [],
       term: this.props.logSearchTerm
+      }
     }
 
-}
+  renderAutoComplete() {
+    // const google = this.props.google;
+    // const map = this.props.google.maps;
+    //
+    // if (!google || !map) return;
+    //   console.log('got here');
+    // const autocomplete = new google.maps.places.Autocomplete(this.autocomplete);
+    // autocomplete.bindTo('bounds', map);
+    //
+    // autocomplete.addListener('place_changed', () => {
+    //   const place = autocomplete.getPlace();
+    //
+    //   if (!place.geometry) return;
+    //
+    //   if (place.geometry.viewport) map.fitBounds(place.geometry.viewport);
+    //   else {
+    //     map.setCenter(place.geometry.location);
+    //     map.setZoom(17);
+    //   }
+    //
+    //   this.setState({ position: place.geometry.location });
+  }
+
+  componentDidMount(){
+     // this.renderAutoComplete()
+  }
 
   componentWillReceiveProps(nextProps) {
     console.log('nextProps', nextProps.logSearchTerm)
       if (nextProps.geoLocation != undefined){
          if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
-           console.log('got here!');
              this.setState({
                fields:{
                  location:{
@@ -192,11 +217,18 @@ class MapContainer extends Component {
     )
   }
 
+  fetchPlaces(mapProps, map) {
+    const {google} = mapProps;
+    const service = new google.maps.places.PlacesService(map);
+  }
+
+
   render() {
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
           initialCenter={{lat: 33.1631037,lng: -117.3286687}}
+          onReady={this.fetchPlaces}
           zoom={14}
           center={{lat: this.state.fields.location.lat, lng: this.state.fields.location.lng}}
           onClick={(t, map, c) => this.addMarker(c.latLng, map)}>
@@ -219,6 +251,7 @@ class MapContainer extends Component {
           onOpen={e => {this.onNewInfoWindowOpen(this.props, e)}}>
           <div id="newMarker" />
           </InfoWindow>
+
     </Map>
     )
   }

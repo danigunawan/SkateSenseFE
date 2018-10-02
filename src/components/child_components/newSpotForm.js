@@ -98,8 +98,6 @@ class newSpotForm extends Component {
               Create New Skate Spot
             </Typography>
 
-
-
               <TextField
                 name='SpotName'
                 id="standard-name"
@@ -109,7 +107,6 @@ class newSpotForm extends Component {
                 onChange={this.changeEverything}
                 variant="outlined"
               />
-
 
               <TextField
                 name='Description'
@@ -131,6 +128,7 @@ class newSpotForm extends Component {
               type="file"
               onChange={this.handleFileUpload}
               />
+              
               <label htmlFor="contained-button-file">
                 <Button onChange={this.handleFileUpload} variant="contained" component="span" className={classes.button}>
                 Photo Upload
