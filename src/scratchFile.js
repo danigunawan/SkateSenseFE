@@ -4,19 +4,6 @@ import { getSkateSpots } from '../../action'
 import { connect } from 'react-redux'
 import SkateSpotItem from '../child_components/SkateSpotItem'
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import { compose } from 'redux'
-
-const styles = {
-  title: {
-    fontFamily: 'pacifico',
-    flexGrow: 1,
-    maxWidth: 500,
-    margin: 20,
-    fontSize: 30
-  },
-};
 
 class BookmarkContainer extends Component {
   constructor(props){
@@ -26,19 +13,12 @@ class BookmarkContainer extends Component {
     }
   }
   render(){
-    const { classes } = this.props;
     return(
       <div>
-        <center>
-          <Typography className={classes.title} variant="title">
-            Bookmarks
-          </Typography>
-          </center>
-
-        <Grid justify='center' container spacing={24}>
-          { this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem key={spot.id} spot={spot} /> ): null }
+        <center><h1> Bookmarks </h1></center>
+        <Grid container spacing={18}>
+          { this.state.myBookmarks ? this.state.myBookmarks.map(spot => <SkateSpotItem spot={spot} /> ): null }
         </Grid>
-
       </div>
     )
   }
@@ -74,9 +54,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-
-const stylesMap = withStyles(styles)
-
-const connectMap = connect(mapStateToProps, mapDispatchToProps)
-
-export default compose(stylesMap, connectMap)(BookmarkContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(BookmarkContainer)

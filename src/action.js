@@ -12,7 +12,6 @@ export function getSkateSpots() {
 }
 
 export function getUserData() {
-
     return (dispatch) =>{
       dispatch({type: 'LOADING_DATA'})
       return fetch('http://localhost:3000/api/v1/users/1').then(r=>r.json()).then(data=>{
@@ -34,8 +33,11 @@ export function getGeolocation() {
   }
 }
 
-function functionName() {
-
+export function logSearchTerm(e) {
+  return (dispatch) =>{
+    dispatch({type: 'LOG_SEARCH_TERM', payload:e.target.value})
+    return e.target.value
+  }
 }
 
 

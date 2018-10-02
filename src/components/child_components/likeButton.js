@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import { getUserData } from '../../action'
 import { connect } from 'react-redux'
+import { getSkateSpots } from '../../action'
+
 
 class LikeButton extends Component{
   constructor(props){
@@ -39,7 +41,7 @@ class LikeButton extends Component{
       }),
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(data=>this.setState({like: true, currentLikeid: data.id}))
+    }).then(r=>r.json()).then(data=>this.setState({like: true, currentLikeid: data.id})).then(this.props.getSkateSpots())
   }
 
   onUnLike = () => {
@@ -47,7 +49,7 @@ class LikeButton extends Component{
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(data=>this.setState({like:false, currentLikeid: data.id}))
+    }).then(r=>r.json()).then(data=>this.setState({like:false, currentLikeid: data.id})).then(this.props.getSkateSpots())
   }
 
   checkLike = () => {
@@ -73,6 +75,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       getUserData: () => dispatch(getUserData()),
+      getSkateSpots: () => dispatch(getSkateSpots())
     }
 }
 

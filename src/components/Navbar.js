@@ -13,6 +13,7 @@ import ProfileIcon from '@material-ui/icons/Person'
 import SearchIcon from '@material-ui/icons/Search';
 import GeoLocationIcon from '@material-ui/icons/MyLocation'
 import { getGeolocation } from '../action'
+import { logSearchTerm } from '../action'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getSkateSpots } from '../action'
@@ -41,6 +42,9 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
+    marginBottom: 10,
+    fontSize: 30,
+    fontFamily: 'pacifico',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -88,21 +92,19 @@ const styles = theme => ({
     },
   },
 });
-function logChange(e) {
-    console.log(e.target.value)
-}
+
 
 function NavBar(props) {
   const { classes } = props;
   const skateboard = require(`../assets/skateboard.png`)
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="white">
+      <AppBar position="static" color="inherit">
         <Toolbar>
-        SkateSense
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
-            <img src={`${skateboard}`} alt='yo' width='50' height='50' />
+            SkateSense
           </Typography>
+          <img src={`${skateboard}`} alt='yo' width='50' height='50' />
           <IconButton href="/" className={classes.mapButton} color="inherit" aria-label="Open drawer">
           <MapIcon />
           </IconButton>
@@ -129,7 +131,7 @@ function NavBar(props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
-              onChange={logChange}
+              onChange={(e) => props.logSearchTerm(e)}
             />
           </div>
         </Toolbar>
@@ -154,7 +156,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
       getGeolocation: () => dispatch(getGeolocation()),
-      getSkateSpots: () => dispatch(getSkateSpots())
+      getSkateSpots: () => dispatch(getSkateSpots()),
+      logSearchTerm: (e) => dispatch(logSearchTerm(e))
     }
 }
 

@@ -12,6 +12,7 @@ import {Provider} from 'react-redux'
 import store from '../../store'
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions'
+import Grid from '@material-ui/core/Grid';
 
 class MapContainer extends Component {
   constructor(props){
@@ -27,14 +28,15 @@ class MapContainer extends Component {
           lng: -117.3286687
         }
       },
-      spots: []
+      spots: [],
+      term: this.props.logSearchTerm
     }
+
 }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextPROPS', nextProps)
-      if (nextProps.geoLocation != 'undefined'){
-         console.log('NEXTPROPS.GEOLOCATION IS NOT UNDEFINED')
+    console.log('nextProps', nextProps.logSearchTerm)
+      if (nextProps.geoLocation != undefined){
          if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
            console.log('got here!');
              this.setState({
@@ -46,6 +48,8 @@ class MapContainer extends Component {
                }
             })
           }
+     }else if (nextProps.geolocation == undefined) {
+       console.log('got to line 50, MapContainer. nextProps.geolocation == undefined');
      }
    }
 
@@ -96,25 +100,33 @@ class MapContainer extends Component {
         location
       }
       }));
-      map.panTo(location);
     };
 
-
   onInfoWindowOpen = (props, e) => {
-      const btnSet = (
-        <div>
-          <LikeButton marker={this.state.activeMarker}/>
-          <BookmarkButton marker={this.state.activeMarker}/>
-          <SkateSpotPageButton />
+    // let spot = ('filtered spot', props.skateSpots.filter(spot => spot.id === this.state.activeMarker.id))
+    // let spotLikeCount = ''
+    // if (spot[0] !== undefined){
+    //   spotLikeCount = spot[0].likes.length
+    // }
+    // <h1>Likes: {spotLikeCount !== undefined ? spotLikeCount : null} </h1>
 
-          <IconButton href={`https://www.google.com/maps/dir//${this.state.activeMarker.position.lat()},${this.state.activeMarker.position.lng()}`}
-            target="_blank"
-            color="inherit"
-            aria-label="Open drawer"
-            >
-            <DirectionsIcon />
-          </IconButton>
-        </div>
+
+    console.log('line 106 activeMarker', this.state.activeMarker);
+      const btnSet = (
+        <Grid container>
+          <div>
+
+            <BookmarkButton marker={this.state.activeMarker}/>
+
+            <IconButton href={`https://www.google.com/maps/dir//${this.state.activeMarker.position.lat()},${this.state.activeMarker.position.lng()}`}
+              target="_blank"
+              color="inherit"
+              aria-label="Open drawer"
+              >
+              <DirectionsIcon />
+            </IconButton>
+          </div>
+        </Grid>
       )
       ReactDOM.render(
         <Provider store={store}>
@@ -141,7 +153,7 @@ class MapContainer extends Component {
   render() {
     return (
       <Map google={this.props.google}
-          style={{width: "100%",height: "100%"}}
+          style={{width: "100%", marginTop:3, height: "96%"}}
           initialCenter={{lat: 33.1631037,lng: -117.3286687}}
           zoom={14}
           center={{lat: this.state.fields.location.lat, lng: this.state.fields.location.lng}}
@@ -176,7 +188,8 @@ class MapContainer extends Component {
 const mapStateToProps = state => {
   return {
     skateSpots: state.skate_spots,
-    geoLocation: state.geoLocation
+    geoLocation: state.geoLocation,
+    logSearchTerm: state.logSearchTerm
   }
 }
 

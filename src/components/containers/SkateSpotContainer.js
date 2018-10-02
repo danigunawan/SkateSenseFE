@@ -16,11 +16,6 @@ class SkateSpotContainer extends Component {
     )
   }
 
-
-  async componentDidMount(){
-  //   const response = await this.props.getUserData()
-  //   this.setState({ myBookmarks: response.bookmarks, mySkateSpots: response.skate_spots })
-  }
 }
 
 const mapStateToProps = (state) => {

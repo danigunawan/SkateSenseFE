@@ -35,7 +35,7 @@ class newSpotForm extends Component {
         data.append('latitude', this.props.latitude())
         data.append('longitude', this.props.longitude())
         data.append('description', this.state.Description)
-        data.append('bust_factor', this.state.BustValue)
+        data.append('bust_factor', 1)
         data.append('skatephoto', this.state.Photo)
         data.append('user_id', 1)
 
@@ -51,33 +51,34 @@ class newSpotForm extends Component {
   render(){
     return(
       <div>
-        <form onSubmit={this.onSubmit}>
+        <form>
           Name: <input name="SpotName" value={this.state.SpotName} type="text" onChange={this.changeEverything}/><br/>
-          Bust Factor:
-          <select name="BustFactor" value={this.state.BustFactor} onChange={this.changeEverything}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select><br/>
           Photo:
           <input name="Photo" onChange={this.handleFileUpload} type="file" /><br/>
           Description:
           <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
 
-          <FlatButton type="submit" variant="contained" color="primary">Submit</FlatButton>
+          <FlatButton onClick={this.onSubmit} type="submit" variant="contained" color="primary">Submit</FlatButton>
         </form>
       </div>
     )
   }
 }
+
+// Bust Factor:
+// <select name="BustFactor" value={this.state.BustFactor} onChange={this.changeEverything}>
+//   <option value="1">1</option>
+//   <option value="2">2</option>
+//   <option value="3">3</option>
+//   <option value="4">4</option>
+//   <option value="4">4</option>
+//   <option value="5">5</option>
+//   <option value="6">6</option>
+//   <option value="7">7</option>
+//   <option value="8">8</option>
+//   <option value="9">9</option>
+//   <option value="10">10</option>
+// </select><br/>
 
 
 const mapDispatchToProps = (dispatch) => {
