@@ -12,6 +12,7 @@ class BookmarkButton extends Component{
       currentUserid: this.props.marker.currentUserid,
       currentBookmarkid: 'empty'
     }
+    console.log('bookmark button props', window.location.href);
   }
 
 
@@ -50,7 +51,7 @@ class BookmarkButton extends Component{
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(data=>this.setState({bookmarked:false, currentBookmarkid: data.id}))
+    }).then(r=>r.json()).then(data=>this.setState({bookmarked:false, currentBookmarkid: data.id})).then(this.props.changeState)
   }
 
   checkBookmark = () => {

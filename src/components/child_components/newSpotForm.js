@@ -2,7 +2,46 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getSkateSpots } from '../../action'
 import FlatButton from '@material-ui/core/Button';
-import Input from 'react'
+
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { compose } from 'redux'
+import TextField from '@material-ui/core/TextField';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import IconButton from '@material-ui/core/IconButton';
+
+const styles = theme => ({
+  card: {
+    display: 'flex',
+    width: 400,
+    flexWrap: 'wrap'
+  },
+  bullet: {
+    fontSize: 25,
+    display: 'block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontFamily: 'pacifico',
+    marginBottom: 1,
+    fontSize: 28,
+  },
+  pos: {
+    marginBottom: 12,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
 class newSpotForm extends Component {
   constructor(props){
@@ -49,36 +88,66 @@ class newSpotForm extends Component {
   }
 
   render(){
+    const { classes } = this.props;
     return(
       <div>
-        <form>
-          Name: <input name="SpotName" value={this.state.SpotName} type="text" onChange={this.changeEverything}/><br/>
-          Photo:
-          <input name="Photo" onChange={this.handleFileUpload} type="file" /><br/>
-          Description:
-          <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
+      <Card className={classes.card}>
+        <CardContent>
+          <form autoComplete="off">
+            <Typography className={classes.title} color="textSecondary">
+              Create New Skate Spot
+            </Typography>
 
-          <FlatButton onClick={this.onSubmit} type="submit" variant="contained" color="primary">Submit</FlatButton>
-        </form>
+
+
+              <TextField
+                name='SpotName'
+                id="standard-name"
+                placeholder= 'SpotName'
+                value= {this.state.SpotName}
+                margin="normal"
+                onChange={this.changeEverything}
+                variant="outlined"
+              />
+
+
+              <TextField
+                name='Description'
+                id="standard-name"
+                placeholder= 'Description'
+                value= {this.state.Description}
+                margin="normal"
+                onChange={this.changeEverything}
+                variant="outlined"
+                fullWidth
+              />
+
+              <input
+              name="Photo"
+              accept="image/*"
+              className={classes.input}
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={this.handleFileUpload}
+              />
+              <label htmlFor="contained-button-file">
+                <Button onChange={this.handleFileUpload} variant="contained" component="span" className={classes.button}>
+                Photo Upload
+                </Button>
+              </label>
+
+          </form>
+          </CardContent>
+        <CardActions>
+          <Button onClick={this.onSubmit} size="large">Submit</Button>
+        </CardActions>
+      </Card>
+
       </div>
     )
   }
 }
-
-// Bust Factor:
-// <select name="BustFactor" value={this.state.BustFactor} onChange={this.changeEverything}>
-//   <option value="1">1</option>
-//   <option value="2">2</option>
-//   <option value="3">3</option>
-//   <option value="4">4</option>
-//   <option value="4">4</option>
-//   <option value="5">5</option>
-//   <option value="6">6</option>
-//   <option value="7">7</option>
-//   <option value="8">8</option>
-//   <option value="9">9</option>
-//   <option value="10">10</option>
-// </select><br/>
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -87,4 +156,34 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(newSpotForm)
+
+// <form>
+//     Name:
+//   <TextField
+//     className = ''
+//     name="SpotName"
+//     value={this.state.SpotName}
+//     type="text"
+//     onChange={this.changeEverything}
+//     variant='outlined'
+//     />
+//
+//   Photo:
+//   <input name="Photo" onChange={this.handleFileUpload} type="file" /><br/>
+//   Description:
+//   <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
+//
+//   <FlatButton onClick={this.onSubmit} type="submit" variant="contained" color="primary">Submit</FlatButton>
+// </form>
+
+
+
+
+
+
+
+const stylesMap = withStyles(styles)
+
+const connectMap = connect(null, mapDispatchToProps)
+
+export default compose(stylesMap, connectMap)(newSpotForm)

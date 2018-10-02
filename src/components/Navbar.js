@@ -93,6 +93,7 @@ const styles = theme => ({
   },
 });
 
+let currentURL = window.location.href
 
 function NavBar(props) {
   const { classes } = props;
@@ -104,19 +105,23 @@ function NavBar(props) {
           <Typography className={classes.title} variant="title" color="inherit" noWrap>
             SkateSense
           </Typography>
+
           <img src={`${skateboard}`} alt='yo' width='50' height='50' />
+
           <IconButton href="/" className={classes.mapButton} color="inherit" aria-label="Open drawer">
-          <MapIcon />
-          </IconButton>
-          <IconButton href="/profile" className={classes.profileButton} color="inherit" aria-label="Open drawer">
-            <ProfileIcon />
-          </IconButton>
-          <IconButton href="/bookmarks" className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
-            <BookMarkIcon />
+            <MapIcon />
           </IconButton>
 
           <IconButton onClick={props.getGeolocation} className={classes.GeoLocationButton} color="inherit" aria-label="Open drawer">
             <GeoLocationIcon />
+          </IconButton>
+
+          <IconButton href="/bookmarks" className={classes.bookmarkButton} color="inherit" aria-label="Open drawer">
+            <BookMarkIcon />
+          </IconButton>
+
+          <IconButton href="/profile" className={classes.profileButton} color="inherit" aria-label="Open drawer">
+            <ProfileIcon />
           </IconButton>
 
           <div className={classes.grow} />

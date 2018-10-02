@@ -13,13 +13,21 @@ import store from '../../store'
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions'
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+
 
 class MapContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
       showingInfoWindow: false,
-      activeMarker: {},
+      activeMarker: {
+        image:{
+          url:'a'
+        }
+      },
       selectedPlace: {},
       image: '',
       fields: {
@@ -110,21 +118,55 @@ class MapContainer extends Component {
     // }
     // <h1>Likes: {spotLikeCount !== undefined ? spotLikeCount : null} </h1>
 
-
-    console.log('line 106 activeMarker', this.state.activeMarker);
+      const styles = theme => ({
+        title:{
+          fontSize: 60,
+          // fontFamily: 'gurajada',
+          fontWeight: 'bold'
+        },
+        root: {
+          flexGrow: 1,
+          maxWidth: 500,
+          padding: theme.spacing.unit * 2,
+          margin: 20
+        },
+        description:{
+          fontSize: 20,
+          wordWrap: 'break-word'
+        },
+        image: {
+          width: 128,
+          height: 100,
+        },
+        img: {
+          margin: 'auto',
+          display: 'block',
+          maxWidth: '100%',
+          maxHeight: '100%',
+        },
+      });
       const btnSet = (
         <Grid container>
           <div>
-
-            <BookmarkButton marker={this.state.activeMarker}/>
-
-            <IconButton href={`https://www.google.com/maps/dir//${this.state.activeMarker.position.lat()},${this.state.activeMarker.position.lng()}`}
-              target="_blank"
-              color="inherit"
-              aria-label="Open drawer"
-              >
-              <DirectionsIcon />
-            </IconButton>
+            <Grid item>
+              <Paper className={styles.root}>
+                <Typography className={styles.title}>
+                {this.state.selectedPlace.name}
+                </Typography><br/>
+                  <img src={`http://localhost:3000${this.state.image}`} height='300' width='400'/>
+                <Typography className={styles.description}>
+                  {this.state.selectedPlace.description}
+                </Typography>
+                  <IconButton href={`https://www.google.com/maps/dir//${this.state.activeMarker.position.lat()},${this.state.activeMarker.position.lng()}`}
+                    target="_blank"
+                    color="inherit"
+                    aria-label="Open drawer"
+                    >
+                    <DirectionsIcon />
+                  </IconButton>
+                  <BookmarkButton marker={this.state.activeMarker}/>
+              </Paper>
+          </Grid>
           </div>
         </Grid>
       )
@@ -168,9 +210,6 @@ class MapContainer extends Component {
               visible={this.state.showingInfoWindow}
               onOpen={e => {this.onInfoWindowOpen(this.props, e)}}>
 
-              <img src={`http://localhost:3000${this.state.image}`} height='300' width='370' alt='yo'></img>
-                  <h2>{this.state.selectedPlace.title}</h2>
-                  <h4>{this.state.selectedPlace.description}</h4>
               <div id="iwc" />
           </InfoWindow>
 

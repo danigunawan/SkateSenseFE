@@ -12,7 +12,8 @@ import BookMarkButton from './bookmarkButton.js'
 const styles = theme => ({
   title:{
     fontSize: 25,
-    fontFamily: 'ubuntu'
+    // fontFamily: 'gurajada',
+    fontWeight: 'bold'
   },
   root: {
     flexGrow: 1,
@@ -41,22 +42,25 @@ class SkateSpotItem extends Component{
     super(props)
     this.state = {
       spot: {skatephoto:{url:'a'}},
-
+      bookmarked: true
     }
   }
 
-  async componentDidMount(){
-    await this.setState({spot: this.props.spot, spotphoto: this.props.spot.skatephoto})
+  changeState = () =>{
+    console.log('got here');
+    this.setState({
+      bookmarked:false
+    })
   }
 
-    render(){
-      console.log(this.state.spot);
+  renderBookmark = () =>{
+    if (this.state.bookmarked === true){
       const { classes } = this.props;
       return(
         <Grid item>
           <Paper className={classes.root}>
             <Typography className={classes.title}>
-              {this.props.spot.name}
+            {this.props.spot.name}
             </Typography><br/><br/><br/><br/>
             <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} height='300' width='400'/>
             <Typography className={classes.description}>
@@ -69,8 +73,27 @@ class SkateSpotItem extends Component{
                 >
                 <DirectionsIcon />
               </IconButton>
+              <BookMarkButton marker={this.props.spot} changeState={this.changeState}/>
           </Paper>
       </Grid>
+      )
+    }
+    else{
+      return(
+        null
+      )
+    }
+  }
+
+  async componentDidMount(){
+    await this.setState({spot: this.props.spot, spotphoto: this.props.spot.skatephoto})
+  }
+
+    render(){
+      return(
+        <div>
+          {this.renderBookmark()}
+        </div>
       )
     }
 }
