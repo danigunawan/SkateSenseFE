@@ -151,7 +151,7 @@ class MapContainer extends Component {
             <Grid item>
               <Paper className={styles.root}>
                 <Typography className={styles.title}>
-                {this.state.selectedPlace.name}
+                {this.state.selectedPlace.title}
                 </Typography><br/>
                   <img src={`http://localhost:3000${this.state.image}`} height='300' width='400'/>
                 <Typography className={styles.description}>

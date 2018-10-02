@@ -13,17 +13,22 @@ const styles = theme => ({
   title:{
     fontSize: 25,
     // fontFamily: 'gurajada',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    wordWrap: 'break-word',
+    whiteSpace: 'normal'
   },
   root: {
     flexGrow: 1,
     maxWidth: 500,
     padding: theme.spacing.unit * 2,
-    margin: 20
+    margin: 20,
+    wordWrap: 'break-word',
+    whiteSpace: 'normal'
   },
   description:{
     fontSize: 20,
-    wordWrap: 'break-word'
+    wordWrap: 'break-word',
+    whiteSpace: 'normal',
   },
   image: {
     width: 128,
@@ -63,7 +68,7 @@ class SkateSpotItem extends Component{
             {this.props.spot.name}
             </Typography><br/><br/><br/><br/>
             <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} height='300' width='400'/>
-            <Typography className={classes.description}>
+            <Typography className={classes.description} style={{wordWrap: 'break-word', whiteSpace: 'normal'}}>
               {this.props.spot.description}
             </Typography>
               <IconButton href={`https://www.google.com/maps/dir//${this.props.spot.latitude},${this.props.spot.longitude}`}
