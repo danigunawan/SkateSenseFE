@@ -69,7 +69,6 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps.logSearchTerm)
       if (nextProps.geoLocation != undefined){
          if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
              this.setState({
@@ -82,7 +81,6 @@ class MapContainer extends Component {
             })
           }
      }else if (nextProps.geolocation == undefined) {
-       console.log('got to line 50, MapContainer. nextProps.geolocation == undefined');
      }
    }
 

@@ -33,7 +33,6 @@ class BookmarkButton extends Component{
 
 
   onBookmark = () => {
-    console.log('BOOKMARKED!')
     fetch('http://localhost:3000/api/v1/bookmarks',{
       method: "POST",
       body: JSON.stringify({
@@ -46,7 +45,6 @@ class BookmarkButton extends Component{
   }
 
   onUnBookmark = () => {
-    console.log('UNBOOKMARKED!')
     fetch(`http://localhost:3000/api/v1/bookmarks/${this.state.currentBookmarkid}`,{
       method: "DELETE",
       headers: {

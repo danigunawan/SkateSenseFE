@@ -29,7 +29,6 @@ class BookmarkContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    // console.log('SEARCH TERM', nextProps.logSearchTerm)
     this.handleSearch(nextProps.logSearchTerm)
   }
 
@@ -80,8 +79,6 @@ class BookmarkContainer extends Component {
   getBookmarkedSpots = () =>{
     if (this.state.allSkateSpots.payload.length > 0){
 
-      console.log('mybookmarked spot')
-      // this.setState({myBookmarkedSpots: [...this.state.myBookmarkedSpots, myBookmarkedSpot]})
     }
   }
 

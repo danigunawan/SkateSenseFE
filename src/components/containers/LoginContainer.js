@@ -5,7 +5,6 @@ const LoginContainer = () =>{
 
   function submitFunction(e){
     e.preventDefault()
-    console.log('got here!');
   }
 
   return(

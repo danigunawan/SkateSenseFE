@@ -30,8 +30,8 @@ class SignUpContainer extends Component{
       }),
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(data=>console.log(data))
-    
+    }).then(r=>r.json())
+
   }
 
   render(){

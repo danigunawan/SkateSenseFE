@@ -53,7 +53,6 @@ class SkateSpotItem extends Component{
   }
 
   changeState = () =>{
-    console.log('got here');
     this.setState({
       bookmarked:false
     })
