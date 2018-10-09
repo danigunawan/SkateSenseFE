@@ -176,7 +176,7 @@ class MapContainer extends Component {
                 <Typography className={styles.title}>
                 {this.state.selectedPlace.title}
                 </Typography><br/>
-                  <img src={`http://localhost:3000${this.state.image}`} height='300' width='400'/>
+                  <img src={`http://${process.env.REACT_APP_BACKEND_IP}${this.state.image}`} height='300' width='400'/>
                 <Typography className={styles.description}>
                   {this.state.selectedPlace.description}
                 </Typography>
@@ -265,7 +265,7 @@ const mapStateToProps = state => {
 
 const connectedMap = connect(mapStateToProps)(MapContainer)
 export default GoogleApiWrapper({
-  apiKey: ('AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck')
+  apiKey: process.env.REACT_APP_API_KEY
 })(connectedMap)
 // AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo
 // AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck

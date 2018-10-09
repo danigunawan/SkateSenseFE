@@ -1,20 +1,20 @@
 export function getUsers() {
     return (dispatch) =>{
-      return fetch('http://localhost:3000/api/v1/users').then(r=>r.json()).then(data=>dispatch({type:'GET_USERS', payload:data}))
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users`).then(r=>r.json()).then(data=>dispatch({type:'GET_USERS', payload:data}))
     }
 }
 
 export function getSkateSpots() {
   console.log('GETTING SKATE SPOTS!');
     return (dispatch) =>{
-      return fetch('http://localhost:3000/api/v1/skate_spots').then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`).then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
     }
 }
 
 export function getUserData() {
     return (dispatch) =>{
       dispatch({type: 'LOADING_DATA'})
-      return fetch('http://localhost:3000/api/v1/users/1').then(r=>r.json()).then(data=>{
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users/1`).then(r=>r.json()).then(data=>{
         dispatch({type:'GET_USER_DATA', payload:data})
         dispatch({type:'LOADED_DATA'})
         return data
@@ -43,7 +43,7 @@ export function logSearchTerm(e) {
 
 export function postSkateSpots() {
     return (dispatch) =>{
-      return fetch('http://localhost:3000/api/v1/skate_spots',{
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`,{
         method: "POST",
         body: JSON.stringify({
           name: this.state.SpotName,

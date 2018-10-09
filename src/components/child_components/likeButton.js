@@ -33,7 +33,7 @@ class LikeButton extends Component{
 
 
   onLike = () => {
-    fetch('http://localhost:3000/api/v1/likes',{
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/likes`,{
       method: "POST",
       body: JSON.stringify({
         skate_spot_id:`${this.state.markerID}`,
@@ -45,7 +45,7 @@ class LikeButton extends Component{
   }
 
   onUnLike = () => {
-    fetch(`http://localhost:3000/api/v1/likes/${this.state.currentLikeid}`,{
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/likes/${this.state.currentLikeid}`,{
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'}

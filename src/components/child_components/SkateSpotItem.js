@@ -67,7 +67,7 @@ class SkateSpotItem extends Component{
             <Typography className={classes.title}>
             {this.props.spot.name}
             </Typography>
-            <img src={`http://localhost:3000/${this.props.spot.skatephoto.url}`} className={classes.img} height='300' width='400'/>
+            <img src={`http://${process.env.REACT_APP_BACKEND_IP}/${this.props.spot.skatephoto.url}`} className={classes.img} height='300' width='400'/>
             <Typography className={classes.description} style={{wordWrap: 'break-word', whiteSpace: 'normal'}}>
               {this.props.spot.description}
             </Typography>

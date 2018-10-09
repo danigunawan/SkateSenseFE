@@ -78,7 +78,7 @@ class newSpotForm extends Component {
         data.append('skatephoto', this.state.Photo)
         data.append('user_id', 1)
 
-      fetch(`http://localhost:3000/api/v1/skate_spots`, {
+      fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`, {
         method: 'POST',
         body: data,
         }
@@ -128,7 +128,7 @@ class newSpotForm extends Component {
               type="file"
               onChange={this.handleFileUpload}
               />
-              
+
               <label htmlFor="contained-button-file">
                 <Button onChange={this.handleFileUpload} variant="contained" component="span" className={classes.button}>
                 Photo Upload

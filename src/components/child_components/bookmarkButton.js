@@ -33,7 +33,7 @@ class BookmarkButton extends Component{
 
 
   onBookmark = () => {
-    fetch('http://localhost:3000/api/v1/bookmarks',{
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks`,{
       method: "POST",
       body: JSON.stringify({
         skate_spot_id:`${this.state.markerID}`,
@@ -45,7 +45,7 @@ class BookmarkButton extends Component{
   }
 
   onUnBookmark = () => {
-    fetch(`http://localhost:3000/api/v1/bookmarks/${this.state.currentBookmarkid}`,{
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks/${this.state.currentBookmarkid}`,{
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json'}
