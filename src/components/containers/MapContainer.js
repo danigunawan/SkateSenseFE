@@ -226,7 +226,7 @@ class MapContainer extends Component {
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
-          initialCenter={{lat: 40.7128,lng: 74.0060}}
+          initialCenter={{lat: 40.7083508384083,lng: -73.9996267923894}}
           onReady={this.fetchPlaces}
           zoom={14}
           center={{lat: this.state.fields.location.lat, lng: this.state.fields.location.lng}}
