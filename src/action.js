@@ -24,8 +24,11 @@ export function getUserData() {
 
 export function getGeolocation() {
   return (dispatch) => {
+    console.log('got here line 27 action.js');
     navigator.geolocation.getCurrentPosition(function(position) {
+      console.log('got here line 29 action.js');
       let data = {latitude: position.coords.latitude, longitude:position.coords.longitude}
+      console.log('got here line 31 action.js');
       console.log(data)
       dispatch({type: 'GET_USER_GEOLOCATION', payload:data})
       return data

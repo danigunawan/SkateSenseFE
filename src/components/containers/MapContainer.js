@@ -71,6 +71,7 @@ class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
       if (nextProps.geoLocation != undefined){
          if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
+           console.log('getting geolocation line 74 mapcontainer');
              this.setState({
                fields:{
                  location:{
@@ -225,7 +226,7 @@ class MapContainer extends Component {
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
-          initialCenter={{lat: 33.1631037,lng: -117.3286687}}
+          initialCenter={{lat: 40.7128,lng: 74.0060}}
           onReady={this.fetchPlaces}
           zoom={14}
           center={{lat: this.state.fields.location.lat, lng: this.state.fields.location.lng}}
