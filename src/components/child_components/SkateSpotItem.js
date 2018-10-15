@@ -10,6 +10,12 @@ import DirectionsIcon from '@material-ui/icons/Directions'
 import BookMarkButton from './bookmarkButton.js'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+});
+
 const styles = theme => ({
   title:{
     fontSize: 18,
