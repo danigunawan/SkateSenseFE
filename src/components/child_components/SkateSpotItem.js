@@ -11,6 +11,8 @@ import BookMarkButton from './bookmarkButton.js'
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import { createMuiTheme } from '@material-ui/core/styles';
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,

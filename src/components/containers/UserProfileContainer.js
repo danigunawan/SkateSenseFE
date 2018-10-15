@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { compose } from 'redux'
 import TextField from '@material-ui/core/TextField';
 
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = {
   card: {
     marginTop: 100,

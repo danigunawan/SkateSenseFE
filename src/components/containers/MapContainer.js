@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 class MapContainer extends Component {
   constructor(props){
