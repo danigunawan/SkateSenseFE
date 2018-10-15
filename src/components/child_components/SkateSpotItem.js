@@ -73,7 +73,7 @@ class SkateSpotItem extends Component{
             </Typography>
 
 
-            <Grid container spacing={12} style={{display: 'inline-flex', verticalAlign: 'middle'}}>
+            <Grid container spacing={16} style={{display: 'inline-flex', verticalAlign: 'middle'}}>
               <Grid item xs={6}>
                 <BookMarkButton marker={this.props.spot} changeState={this.changeState} style={{marginBottom:10}} />
               </Grid>
