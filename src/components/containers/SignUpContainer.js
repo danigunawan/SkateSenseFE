@@ -22,15 +22,18 @@ class SignUpContainer extends Component{
     fetch('http://localhost:3000/api/v1/users',{
       method: "POST",
       body: JSON.stringify({
-        username: this.state.username,
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        photo: 'n/a',
+        user:{
+          username: this.state.username,
+          password: this.state.password,
+          first_name: this.state.first_name,
+          last_name: this.state.last_name,
+          email: this.state.email,
+          photo: 'n/a',
+        }
       }),
       headers: {
         'Content-Type': 'application/json'}
-    }).then(r=>r.json())
+    }).then(r=>r.json()).then(console.log)
 
   }
 

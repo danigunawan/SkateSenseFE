@@ -7,12 +7,14 @@ import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import UserProfileContainer from './containers/UserProfileContainer'
 import SkateSpotContainer from './containers/SkateSpotContainer'
-import SignUpContainer from './containers/SignUpContainer'
 import LoginContainer from './containers/LoginContainer'
+import SignUpContainer from './containers/SignUpContainer'
 import BookmarkContainer from './containers/BookmarkContainer.js'
 import NavBar from './Navbar'
 
+
 class App extends Component {
+
 
   componentDidMount(){
     this.props.getUsers()
@@ -20,22 +22,23 @@ class App extends Component {
   }
 
   render() {
+
     return (
-      <div>
-        <Router>
-          <div>
-            <NavBar />
-            <Route exact path="/" component={MapContainer} />
-            <Route exact path="/bookmarks" component={BookmarkContainer}  />
-            <Route exact path="/signup" component={SignUpContainer} />
-            <Route exact path="/login" component={LoginContainer} />
-            <Route exact path="/profile" component={UserProfileContainer} />
-            <Route exact path="/spot" component={SkateSpotContainer} />
-          </div>
-        </Router>
-    </div>
-    )
-  }
+        <div>
+            <Router>
+              <div>
+                <NavBar />
+                <Route exact path="/login" component={LoginContainer} />
+                <Route exact path="/" component={MapContainer} />
+                <Route exact path="/signup" component={SignUpContainer} />
+                <Route exact path="/bookmarks" component={BookmarkContainer}  />
+                <Route exact path="/profile" component={UserProfileContainer} />
+                <Route exact path="/spot" component={SkateSpotContainer} />
+              </div>
+            </Router>
+        </div>
+      )
+    }
 }
 
 function mapStateToProps(state) {

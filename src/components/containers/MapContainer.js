@@ -7,7 +7,6 @@ import BookmarkButton from '../child_components/bookmarkButton'
 import SkateSpotPageButton from '../child_components/spotProfileButton'
 import { getSkateSpots } from '../../action'
 import { connect } from 'react-redux'
-import { compose } from 'redux'
 import {Provider} from 'react-redux'
 import store from '../../store'
 import IconButton from '@material-ui/core/IconButton';
@@ -69,7 +68,7 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-      if (nextProps.geoLocation != undefined){
+      if (nextProps.geoLocation !== undefined){
          if(nextProps.geoLocation.latitude !== this.state.fields.location.lat) { // You might need to have a deep comparison here if columns is not immutable or a nested obejct. You can use _.isEqual from lodash in that case
            console.log('getting geolocation line 74 mapcontainer');
              this.setState({
@@ -81,7 +80,7 @@ class MapContainer extends Component {
                }
             })
           }
-     }else if (nextProps.geolocation == undefined) {
+     }else if (nextProps.geolocation === undefined) {
      }
    }
 
@@ -177,7 +176,7 @@ class MapContainer extends Component {
                 <Typography className={styles.title}>
                 {this.state.selectedPlace.title}
                 </Typography><br/>
-                  <img src={`http://${process.env.REACT_APP_BACKEND_IP}${this.state.image}`} height='300' width='400'/>
+                  <img src={`http://${process.env.REACT_APP_BACKEND_IP}${this.state.image}`} height='300' width='400' alt='no img'/>
                 <Typography className={styles.description}>
                   {this.state.selectedPlace.description}
                 </Typography>
