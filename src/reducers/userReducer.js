@@ -6,31 +6,52 @@ const initialState = {
       last_name: 'Conrad',
       email: "seanconrad123@gmail.com"
     },
+  ],
+  loadingData: false,
+  skate_spots:[
     {
-      id: 2,
-      first_name: 'Tony',
-      last_name: 'Turetsky',
-      email: "tonyturestky@gmail.com"
-    },
-    {
-      id: 3,
-      first_name: 'John',
-      last_name: 'Ahn',
-      email: "tonyturestky@gmail.com"
+      id:1,
+      name: 'MySkateSpot',
+      country: 'USA',
+      state: 'NY',
+      city: 'NYC',
+      latitude: '40.7128',
+      longitude: '74.0060',
+      description: 'A good spot',
+      bust_factor: 10,
+      photo: 'n/a',
+      user_id: 1
     }
   ],
-    currentUser: {
-      id: 3,
-      first_name: 'John',
-      last_name: 'Ahn',
-      email: "tonyturestky@gmail.com"
-  },
-  loadingData: false
-
+  user: null,
+  loggedIn: false,
+  authenticatingUser: false,
+  failedLogin: false,
+  error: null
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case 'SET_CURRENT_USER':
+      return { ...state, user: action.payload, loggedIn: true, authenticatingUser: false }
+
+    case 'AUTHENTICATING_USER':
+      return { ...state, authenticatingUser: true }
+
+    case 'AUTHENTICATED_USER':
+      return { ...state, authenticatingUser: false }
+
+    case 'FAILED_LOGIN':
+      return {
+        ...state,
+        failedLogin: true,
+        error: action.payload,
+        authenticatingUser: false
+      }
+
+    case 'LOGOUT_USER':
+      return {...state, loggedIn: false}
+
     case 'GET_USERS':
       return {...state, users: action.payload}
     case 'GET_SKATE_SPOTS':

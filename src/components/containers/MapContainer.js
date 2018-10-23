@@ -222,6 +222,7 @@ class MapContainer extends Component {
 
 
   render() {
+    console.log('my skatespots: ', this.state.skate_spots)
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
@@ -262,6 +263,7 @@ const mapStateToProps = state => {
     logSearchTerm: state.logSearchTerm
   }
 }
+
 
 const connectedMap = connect(mapStateToProps)(MapContainer)
 export default GoogleApiWrapper({

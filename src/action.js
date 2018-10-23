@@ -4,6 +4,110 @@ export function getUsers() {
     }
 }
 
+export const createUser = (username, password, first_name, last_name, email, photo) => {
+
+  let objData = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
+    body: JSON.stringify({
+      user: {
+        username: username,
+        password: password,
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        photo: photo
+      }
+    })
+  }
+
+  return(dispatch) => {
+    dispatch({ type: 'AUTHENTICATING_USER'})
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users`, objData)
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        throw response
+      }
+    })
+      .then(JSONResponse => {
+        console.log(JSONResponse);
+        localStorage.setItem('jwt', JSONResponse.jwt)
+        dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
+      })
+      .catch( res => {res.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message }))})
+    }
+}
+
+export const loginUser = (username, password) => {
+
+  return (dispatch) => {
+    dispatch({ type: 'AUTHENTICATING_USER'})
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+         Accept: 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          username: username,
+          password: password
+        }
+      })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        } else {
+          throw response
+        }
+      })
+      .then(JSONResponse => {
+        localStorage.setItem('jwt', JSONResponse.jwt)
+        dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
+        debugger;
+      })
+      .catch( res => {
+        res.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message }))})
+    }
+}
+
+export const fetchCurrentUser = () => {
+
+  return (dispatch) => {
+    dispatch(authenticatingUser())
+    fetch(`${process.env.REACT_APP_BACKEND_IP}/api/v1/profile`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+      .then(response => response.json())
+      .then((JSONResponse) => dispatch(setCurrentUser(JSONResponse.user)))
+  }
+}
+
+export const setCurrentUser = (userData) => ({
+  type: 'SET_CURRENT_USER',
+  payload: userData
+})
+
+export const failedLogin = (errorMsg) => ({
+  type: 'FAILED_LOGIN',
+  payload: errorMsg
+})
+
+export const logoutUser = (dispatch) => {
+  dispatch({type:'LOGOUT_USER'})
+}
+
+export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' })
+
+
 export function getSkateSpots() {
   console.log('GETTING SKATE SPOTS!');
     return (dispatch) =>{

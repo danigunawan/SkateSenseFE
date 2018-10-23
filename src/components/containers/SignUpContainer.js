@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
 import FlatButton from '@material-ui/core/Button';
+import { createUser } from '../../action.js'
+import { connect } from 'react-redux'
 
 class SignUpContainer extends Component{
   constructor(props){
     super(props)
     this.state={
       username: '',
+      password: '',
       first_name: '',
       last_name: '',
       email: '',
-      photo: '',
+      photo: 'n/a',
     }
   }
 
@@ -19,25 +22,20 @@ class SignUpContainer extends Component{
 
   submitFunction = (e) =>{
     e.preventDefault()
-    fetch('http://localhost:3000/api/v1/users',{
-      method: "POST",
-      body: JSON.stringify({
-        user:{
-          username: this.state.username,
-          password: this.state.password,
-          first_name: this.state.first_name,
-          last_name: this.state.last_name,
-          email: this.state.email,
-          photo: 'n/a',
-        }
-      }),
-      headers: {
-        'Content-Type': 'application/json'}
-    }).then(r=>r.json()).then(console.log)
+    this.props.createUser(this.state.username, this.state.password, this.state.first_name, this.state.last_name, this.state.email, this.state.photo)
+
+    this.setState({
+     username: '',
+     password: '',
+     first_name: '',
+     last_name: '',
+     photo: ''
+   })
 
   }
 
   render(){
+    console.log("Singup Props in Signup Container", this.props);
     return(
       <div>
         Sign up! <br/>
@@ -55,5 +53,12 @@ class SignUpContainer extends Component{
     )
   }
 }
-// <input type="submit" value="Submit"/>
-export default SignUpContainer
+
+const mapStateToProps = ({ user: { authenticatingUser, failedLogin, error, loggedIn } }) => ({
+  authenticatingUser,
+  failedLogin,
+  error,
+  loggedIn
+})
+
+export default connect(mapStateToProps, { createUser })(SignUpContainer)
