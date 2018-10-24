@@ -222,7 +222,7 @@ class MapContainer extends Component {
 
 
   render() {
-    console.log('my skatespots: ', this.state.skate_spots)
+    console.log('my skatespots: ', this.props.skateSpots)
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
@@ -258,7 +258,7 @@ class MapContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    skateSpots: state.skate_spots,
+    skateSpots: state.user.skate_spots,
     geoLocation: state.geoLocation,
     logSearchTerm: state.logSearchTerm
   }

@@ -39,7 +39,8 @@ export const createUser = (username, password, first_name, last_name, email, pho
         localStorage.setItem('jwt', JSONResponse.jwt)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
       })
-      .catch( res => {res.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message }))})
+      // .catch( res => {res.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message }))})
+      .catch( res => console.log('res ',res))
     }
 }
 
@@ -70,7 +71,6 @@ export const loginUser = (username, password) => {
       .then(JSONResponse => {
         localStorage.setItem('jwt', JSONResponse.jwt)
         dispatch({ type: 'SET_CURRENT_USER', payload: JSONResponse.user })
-        debugger;
       })
       .catch( res => {
         res.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message }))})
@@ -109,9 +109,13 @@ export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' })
 
 
 export function getSkateSpots() {
-  console.log('GETTING SKATE SPOTS!');
     return (dispatch) =>{
-      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`).then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`,{
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxM30.EnZegjt1wtDhaTQWEuqjPi36f03PEWXSGmw3Tn03yMI`
+        }
+      }).then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
     }
 }
 

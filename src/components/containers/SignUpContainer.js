@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import FlatButton from '@material-ui/core/Button';
 import { createUser } from '../../action.js'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
 class SignUpContainer extends Component{
   constructor(props){
@@ -29,6 +30,7 @@ class SignUpContainer extends Component{
      password: '',
      first_name: '',
      last_name: '',
+     email: '',
      photo: ''
    })
 
@@ -36,7 +38,9 @@ class SignUpContainer extends Component{
 
   render(){
     console.log("Singup Props in Signup Container", this.props);
-    return(
+    return  this.props.loggedIn ?(
+      <Redirect to="/" />
+    ) : (
       <div>
         Sign up! <br/>
           <form onSubmit={this.submitFunction}>
