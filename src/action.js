@@ -82,9 +82,8 @@ export const fetchCurrentUser = () => {
   return (dispatch) => {
     dispatch(authenticatingUser())
     fetch(`${process.env.REACT_APP_BACKEND_IP}/api/v1/profile`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`
-      }
+      method: 'GET',
+      headers: {Authorization: `Bearer ${localStorage.getItem('jwt')}`}
     })
       .then(response => response.json())
       .then((JSONResponse) => dispatch(setCurrentUser(JSONResponse.user)))
@@ -115,14 +114,22 @@ export function getSkateSpots() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('jwt')}`
         }
-      }).then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
+      })
+      .then(r=>r.json())
+      .then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
     }
 }
 
 export function getUserData() {
     return (dispatch) =>{
       dispatch({type: 'LOADING_DATA'})
-      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users/1`).then(r=>r.json()).then(data=>{
+      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users/1`, {
+        method:'GET',
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+        .then(r=>r.json()).then(data=>{
         dispatch({type:'GET_USER_DATA', payload:data})
         dispatch({type:'LOADED_DATA'})
         return data
@@ -169,7 +176,9 @@ export function postSkateSpots() {
           user_id: 1
         }),
         headers: {
-          'Content-Type': 'application/json'}
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        }
       }).then(r=>r.json()).then(data=>dispatch(getSkateSpots()))
     }
 }

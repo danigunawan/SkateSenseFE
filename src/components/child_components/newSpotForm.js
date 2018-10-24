@@ -67,24 +67,27 @@ class newSpotForm extends Component {
   onSubmit = (e) =>{
     e.preventDefault()
     let data = new FormData()
-        data.append('name', this.state.SpotName)
-        data.append('country', 'n/a')
-        data.append('city', 'n/a')
-        data.append('state', 'n/a')
-        data.append('latitude', this.props.latitude())
-        data.append('longitude', this.props.longitude())
-        data.append('description', this.state.Description)
-        data.append('bust_factor', 1)
-        data.append('skatephoto', this.state.Photo)
-        data.append('user_id', 1)
+    data.append('name', this.state.SpotName)
+    data.append('country', 'n/a')
+    data.append('city', 'n/a')
+    data.append('state', 'n/a')
+    data.append('latitude', this.props.latitude())
+    data.append('longitude', this.props.longitude())
+    data.append('description', this.state.Description)
+    data.append('bust_factor', 1)
+    data.append('skatephoto', this.state.Photo)
+    data.append('user_id', 1)
 
-      fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`, {
-        method: 'POST',
-        body: data,
-        }
-      ).then(r=>r.json())
-      .then(data=>this.props.getSkateSpots())
-      .then(data=>this.props.newMarkerCreation(data))
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`, {
+      method: 'POST',
+      body: data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
+    })
+    .then(r=>r.json())
+    .then(data=>this.props.getSkateSpots())
+    .then(data=>this.props.newMarkerCreation(data))
   }
 
   render(){

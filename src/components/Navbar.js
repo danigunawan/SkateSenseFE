@@ -107,7 +107,7 @@ function NavBar(props) {
 
           <img src={`${skateboard}`} alt='yo' width='50' height='50' />
 
-          <IconButton href="/" className={classes.mapButton} color="inherit" aria-label="Open drawer">
+          <IconButton href="/map" className={classes.mapButton} color="inherit" aria-label="Open drawer">
             <MapIcon />
           </IconButton>
 

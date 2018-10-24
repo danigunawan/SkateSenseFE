@@ -222,7 +222,7 @@ class MapContainer extends Component {
   }
 
   render() {
-    console.log('my skatespots: ', this.props.loggedIn)
+    console.log('line 225 mapcontainer logged in? ', this.props)
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
