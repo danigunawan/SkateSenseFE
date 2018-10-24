@@ -14,6 +14,7 @@ import DirectionsIcon from '@material-ui/icons/Directions'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { Redirect } from 'react-router'
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -220,9 +221,8 @@ class MapContainer extends Component {
     const service = new google.maps.places.PlacesService(map);
   }
 
-
   render() {
-    console.log('my skatespots: ', this.props.skateSpots)
+    console.log('my skatespots: ', this.props.loggedIn)
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}

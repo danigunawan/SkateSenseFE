@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 // import MapContainer from './MapContainer'
 import MapContainer from './containers/MapContainer'
 import { getUsers } from '../action'
 import { getSkateSpots } from '../action'
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
 import UserProfileContainer from './containers/UserProfileContainer'
 import SkateSpotContainer from './containers/SkateSpotContainer'
 import LoginContainer from './containers/LoginContainer'
@@ -24,19 +24,18 @@ class App extends Component {
   render() {
 
     return (
-        <div>
-            <Router>
-              <div>
-                <NavBar />
+            <Fragment>
+              <NavBar />
+              <Switch>
+                <Route exact path="/" render={ () => <Redirect to="/signup" /> } />
                 <Route exact path="/login" component={LoginContainer} />
-                <Route exact path="/" component={MapContainer} />
+                <Route exact path="/map" component={MapContainer} />
                 <Route exact path="/signup" component={SignUpContainer} />
                 <Route exact path="/bookmarks" component={BookmarkContainer}  />
                 <Route exact path="/profile" component={UserProfileContainer} />
                 <Route exact path="/spot" component={SkateSpotContainer} />
-              </div>
-            </Router>
-        </div>
+              </Switch>
+          </Fragment>
       )
     }
 }
