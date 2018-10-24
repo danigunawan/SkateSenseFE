@@ -113,7 +113,7 @@ export function getSkateSpots() {
       return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`,{
         method: 'GET',
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxM30.EnZegjt1wtDhaTQWEuqjPi36f03PEWXSGmw3Tn03yMI`
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
         }
       }).then(r=>r.json()).then(data=>dispatch({type:'GET_SKATE_SPOTS', payload:data}))
     }
