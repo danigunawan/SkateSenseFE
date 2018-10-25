@@ -9,3 +9,5 @@ Created using:
 - google-maps-react
 - material-ui
 - Ruby on Rails backend
+
+[Link to backend](https://github.com/seanraad123/SkateSenseBE)
