@@ -15,6 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router'
+import withAuth from '../../hocs/withAuth.js'
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -270,6 +271,4 @@ const mapStateToProps = state => {
 
 const connectedMap = connect(mapStateToProps)(MapContainer)
 
-export default GoogleApiWrapper({
-  apiKey: process.env.REACT_APP_API_KEY
-})(connectedMap)
+export default withAuth(GoogleApiWrapper({apiKey: process.env.REACT_APP_API_KEY})(connectedMap))
