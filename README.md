@@ -1,12 +1,13 @@
 # SkateSense
 
-App for skateboarders to be able to post and and find skate spots in their area.
-
+App for skateboarders to be able to find, post, and bookmark skate spots/skate parks in their area
 
 Live: http://seanconrad.me:3000
 
 Created using:
-- react
+- React
+- Redux
+- JWT authentication
 - google-maps-react
 - material-ui
-- rails backend
+- Ruby on Rails backend
