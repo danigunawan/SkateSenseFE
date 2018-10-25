@@ -159,6 +159,7 @@ const mapDispatchToProps = (dispatch) => {
       fetchCurrentUser: () => dispatch(fetchCurrentUser)
     }
 }
+// ENDED HERE. TRYING TO GET PROPS FROM PARENT COMPONENT AND REDUX STORE
 
 const mapStateToProps = (state, stateProps) =>{
   console.log('log own props', stateProps);
