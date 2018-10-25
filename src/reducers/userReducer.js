@@ -1,12 +1,4 @@
 const initialState = {
-  users: [
-    {
-      id: 1,
-      first_name: 'Sean',
-      last_name: 'Conrad',
-      email: "seanconrad123@gmail.com"
-    },
-  ],
   loadingData: false,
   skate_spots:[
     {
@@ -52,8 +44,9 @@ export default function reducer(state = initialState, action) {
     case 'LOGOUT_USER':
       return {...state, loggedIn: false}
 
-    case 'GET_USERS':
-      return {...state, users: action.payload}
+    // case 'GET_USERS':
+    //   return {...state, users: action.payload}
+
     case 'GET_SKATE_SPOTS':
       return {...state, skate_spots: action.payload}
     case 'POST_SKATE_SPOT':

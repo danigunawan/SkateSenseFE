@@ -106,6 +106,7 @@ class MapContainer extends Component {
     })}
 
   newMarkerCreation = (props) =>{
+    console.log('mapcontainer props',props)
     props = props.payload[props.payload.length-1]
     this.setState({
       selectedPlace:props,
@@ -203,6 +204,7 @@ class MapContainer extends Component {
     }
 
   onNewInfoWindowOpen = (props, e) => {
+    console.log(this.state.fields.location.lat());
     const wholeForm = (
       <div>
         <NewSpotForm latitude={this.state.fields.location.lat} longitude={this.state.fields.location.lng} newMarkerCreation={this.newMarkerCreation}/>
@@ -222,7 +224,7 @@ class MapContainer extends Component {
   }
 
   render() {
-    console.log('line 225 mapcontainer logged in? ', this.props)
+    // console.log('line 225 mapcontainer logged in? ', this.props.user)
     return (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
@@ -260,15 +262,14 @@ const mapStateToProps = state => {
   return {
     skateSpots: state.user.skate_spots,
     geoLocation: state.geoLocation,
-    logSearchTerm: state.logSearchTerm
+    logSearchTerm: state.logSearchTerm,
+    user: state.user
   }
 }
 
 
 const connectedMap = connect(mapStateToProps)(MapContainer)
+
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_API_KEY
 })(connectedMap)
-// AIzaSyAyesbQMyKVVbBgKVi2g6VX7mop2z96jBo
-// AIzaSyD8eyGeIVO1m-lMAwJ21o3qiUPRiuFV_ck
-// AIzaSyDiNwCezSsFJzr1kzCqAwnoOlblT5KXNwQ

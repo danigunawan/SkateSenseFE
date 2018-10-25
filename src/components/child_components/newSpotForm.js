@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getSkateSpots } from '../../action'
+import { getSkateSpots, fetchCurrentUser } from '../../action'
 import FlatButton from '@material-ui/core/Button';
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,6 +13,7 @@ import { compose } from 'redux'
 import TextField from '@material-ui/core/TextField';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import IconButton from '@material-ui/core/IconButton';
+import withAuth from '../../hocs/withAuth.js'
 
 const styles = theme => ({
   card: {
@@ -52,7 +52,9 @@ class newSpotForm extends Component {
       Photo: '',
       Description: ''
     }
+    console.log('newspotsform props', this.props);
   }
+
 
   changeEverything = (e) =>{
     this.setState({[e.target.name]: e.target.value})
@@ -76,7 +78,7 @@ class newSpotForm extends Component {
     data.append('description', this.state.Description)
     data.append('bust_factor', 1)
     data.append('skatephoto', this.state.Photo)
-    data.append('user_id', 1)
+    data.append('user_id', this.props.currentUser.user.id)
 
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`, {
       method: 'POST',
@@ -154,37 +156,20 @@ class newSpotForm extends Component {
 const mapDispatchToProps = (dispatch) => {
     return {
       getSkateSpots: () => dispatch(getSkateSpots()),
+      fetchCurrentUser: () => dispatch(fetchCurrentUser)
     }
 }
 
-
-// <form>
-//     Name:
-//   <TextField
-//     className = ''
-//     name="SpotName"
-//     value={this.state.SpotName}
-//     type="text"
-//     onChange={this.changeEverything}
-//     variant='outlined'
-//     />
-//
-//   Photo:
-//   <input name="Photo" onChange={this.handleFileUpload} type="file" /><br/>
-//   Description:
-//   <textarea  name="Description" value={this.state.Description} onChange={this.changeEverything} type="text" /><br/>
-//
-//   <FlatButton onClick={this.onSubmit} type="submit" variant="contained" color="primary">Submit</FlatButton>
-// </form>
-
-
-
-
-
-
+const mapStateToProps = (state, stateProps) =>{
+  console.log('log own props', stateProps);
+  return{
+    currentUser: state.user
+  }
+}
 
 const stylesMap = withStyles(styles)
 
-const connectMap = connect(null, mapDispatchToProps)
+const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-export default compose(stylesMap, connectMap)(newSpotForm)
+export default withAuth(compose(stylesMap, connectMap)(newSpotForm))
+// export default compose(stylesMap, connectMap)(newSpotForm)

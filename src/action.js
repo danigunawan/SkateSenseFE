@@ -1,11 +1,4 @@
-export function getUsers() {
-    return (dispatch) =>{
-      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/users`).then(r=>r.json()).then(data=>dispatch({type:'GET_USERS', payload:data}))
-    }
-}
-
 export const createUser = (username, password, first_name, last_name, email, photo) => {
-
   let objData = {
     method: 'POST',
     headers: {
@@ -78,10 +71,9 @@ export const loginUser = (username, password) => {
 }
 
 export const fetchCurrentUser = () => {
-
   return (dispatch) => {
     dispatch(authenticatingUser())
-    fetch(`${process.env.REACT_APP_BACKEND_IP}/api/v1/profile`, {
+    fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/profile`, {
       method: 'GET',
       headers: {Authorization: `Bearer ${localStorage.getItem('jwt')}`}
     })
@@ -156,29 +148,4 @@ export function logSearchTerm(e) {
     dispatch({type: 'LOG_SEARCH_TERM', payload:e.target.value})
     return e.target.value
   }
-}
-
-
-export function postSkateSpots() {
-    return (dispatch) =>{
-      return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`,{
-        method: "POST",
-        body: JSON.stringify({
-          name: this.state.SpotName,
-          country: 'n/a',
-          city: 'n/a',
-          state: 'n/a',
-          latitude: this.props.latitude,
-          longitude: this.props.longitude,
-          description: this.state.Description,
-          bust_factor: this.state.BustValue,
-          photo: 'NYC_Black_Hubba',
-          user_id: 1
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`
-        }
-      }).then(r=>r.json()).then(data=>dispatch(getSkateSpots()))
-    }
 }

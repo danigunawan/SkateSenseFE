@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { getSkateSpots } from '../action'
 import { withRouter } from  'react-router-dom'
+import { logoutUser } from '../action'
 
 const styles = theme => ({
   root: {
@@ -93,6 +94,11 @@ const styles = theme => ({
     },
   },
 });
+
+const logOut = () => {
+   logoutUser()
+   localStorage.clear()
+ }
 
 function NavBar(props) {
   const { classes } = props;

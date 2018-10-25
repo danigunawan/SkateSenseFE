@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getUserData } from '../../action'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'redux'
 import TextField from '@material-ui/core/TextField';
+import { fetchCurrentUser } from '../../action'
+import withAuth from '../../hocs/withAuth.js'
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = {
@@ -44,15 +45,15 @@ class UserProfileContainer extends Component {
       lastName: '',
       email: '',
     }
+
+  }
+
+  async componentDidMount(){
+    // const response = this.props.currentUser.user.user
   }
 
   handleChange = (e) =>{
     this.setState({[e.target.name]: e.target.value})
-  }
-
-  async componentDidMount(){
-    const response = await this.props.getUserData()
-    this.setState({ user: response})
   }
 
   onSubmit = (e) =>{
@@ -60,7 +61,7 @@ class UserProfileContainer extends Component {
   }
 
   render(){
-    console.log(this.props);
+    console.log('userprofile props', this.props.currentUser)
     const { classes } = this.props;
     return (
       <center>
@@ -78,7 +79,7 @@ class UserProfileContainer extends Component {
               <TextField
                 name='username'
                 id="standard-name"
-                placeholder= {this.state.user.username}
+                placeholder={this.props.currentUser.user.username}
                 value= {this.state.username}
                 margin="normal"
                 onChange={this.handleChange}
@@ -92,7 +93,7 @@ class UserProfileContainer extends Component {
               <TextField
                 name='firstName'
                 id="standard-name"
-                placeholder= {this.state.user.first_name}
+                placeholder={this.props.currentUser.user.first_name}
                 value= {this.state.firstName}
                 margin="normal"
                 onChange={this.handleChange}
@@ -106,7 +107,7 @@ class UserProfileContainer extends Component {
               <TextField
                 name='lastName'
                 id="standard-name"
-                placeholder= {this.state.user.last_name}
+                placeholder={this.props.currentUser.user.last_name}
                 value= {this.state.lastName}
                 margin="normal"
                 onChange={this.handleChange}
@@ -120,7 +121,7 @@ class UserProfileContainer extends Component {
               <TextField
                 name='email'
                 id="standard-name"
-                placeholder= {this.state.user.email}
+                placeholder={this.props.currentUser.user.email}
                 value= {this.state.email}
                 margin="normal"
                 onChange={this.handleChange}
@@ -140,17 +141,27 @@ class UserProfileContainer extends Component {
 
 UserProfileContainer.propTypes = {
   classes: PropTypes.object.isRequired,
-};
+}
 
+const mapStateToProps = (state) =>{
+  return{
+    currentUser: state.user
+  }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      getUserData: () => dispatch(getUserData()),
+      fetchCurrentUser: () => dispatch(fetchCurrentUser)
     }
 }
 
+
 const stylesMap = withStyles(styles)
 
-const connectMap = connect(null, mapDispatchToProps)
+const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-export default compose(stylesMap, connectMap)(UserProfileContainer)
+// export default withAuth(connect(mapStateToProps, mapDispatchToProps)(UserProfileContainer))
+
+export default withAuth(compose(stylesMap, connectMap)(UserProfileContainer))
+
+// export default compose(stylesMap, connectMap)(UserProfileContainer)

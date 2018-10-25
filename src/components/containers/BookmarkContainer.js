@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { getUserData } from '../../action'
-import { getSkateSpots } from '../../action'
+import { getSkateSpots, fetchCurrentUser } from '../../action'
 import { connect } from 'react-redux'
 import SkateSpotItem from '../child_components/SkateSpotItem'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux'
+import withAuth from '../../hocs/withAuth.js'
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -74,8 +74,8 @@ class BookmarkContainer extends Component {
   }
 
   async componentDidMount(){
-    const response = await this.props.getUserData()
-    this.setState({ myBookmarks: response.skate_spots})
+    console.log('my current props', this.props)
+    this.setState({ myBookmarks: this.props.userData.user.bookmarks})
   }
 
   getBookmarkedSpots = () =>{
@@ -89,7 +89,7 @@ class BookmarkContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.user_data,
+    userData: state.user,
     skateSpots: state.skateSpots,
     loadingData: state.loadingData,
     logSearchTerm: state.logSearchTerm
@@ -98,7 +98,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      getUserData: () => dispatch(getUserData()),
+      fetchCurrentUser: () => dispatch(fetchCurrentUser()),
       getSkateSpots: () => dispatch(getSkateSpots())
     }
 }
@@ -108,4 +108,4 @@ const stylesMap = withStyles(styles)
 
 const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-export default compose(stylesMap, connectMap)(BookmarkContainer)
+export default withAuth(compose(stylesMap, connectMap)(BookmarkContainer))

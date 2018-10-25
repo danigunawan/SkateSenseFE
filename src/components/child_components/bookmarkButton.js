@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
-import { getUserData } from '../../action'
+import { fetchCurrentUser } from '../../action'
 import { connect } from 'react-redux'
+import withAuth from '../../hocs/withAuth.js'
+import { compose } from 'redux'
+
 
 
 class BookmarkButton extends Component{
@@ -10,7 +13,8 @@ class BookmarkButton extends Component{
     this.state = {
       bookmarked: false,
       markerID: this.props.marker.id,
-      currentUserid: this.props.marker.currentUserid,
+      // currentUserid: this.props.marker.currentUserid,
+      currentUserid: this.props.user.id,
       currentBookmarkid: 'empty'
     }
   }
@@ -33,6 +37,7 @@ class BookmarkButton extends Component{
 
 
   onBookmark = () => {
+    console.log(' line 36 props', this.props)
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks`,{
       method: "POST",
       body: JSON.stringify({
@@ -40,7 +45,8 @@ class BookmarkButton extends Component{
         user_id: `${this.state.currentUserid}`
       }),
       headers: {
-        'Content-Type': 'application/json'}
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
     }).then(r=>r.json()).then(data=>this.setState({bookmarked: true, currentBookmarkid: data.id}))
   }
 
@@ -48,7 +54,8 @@ class BookmarkButton extends Component{
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks/${this.state.currentBookmarkid}`,{
       method: "DELETE",
       headers: {
-        'Content-Type': 'application/json'}
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+      }
     }).then(r=>r.json()).then(data=>this.setState({bookmarked:false, currentBookmarkid: data.id})).then(this.props.changeState)
   }
 
@@ -68,17 +75,19 @@ class BookmarkButton extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    userData: state.user_data,
-    loadingData: state.loadingData
+    loadingData: state.loadingData,
+    currentUser: state.user
   }
 }
 
 
 const mapDispatchToProps = (dispatch) => {
     return {
-      getUserData: () => dispatch(getUserData()),
+      fetchCurrentUser: () => dispatch(fetchCurrentUser)
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookmarkButton)
+
+const connectMap = connect(mapStateToProps, mapDispatchToProps)
+export default withAuth(compose(connectMap)(BookmarkButton))

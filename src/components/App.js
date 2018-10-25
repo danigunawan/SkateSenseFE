@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 // import MapContainer from './MapContainer'
 import MapContainer from './containers/MapContainer'
-import { getUsers } from '../action'
 import { getSkateSpots } from '../action'
 import { connect } from 'react-redux'
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
@@ -17,7 +16,6 @@ class App extends Component {
 
 
   componentDidMount(){
-    this.props.getUsers()
     this.props.getSkateSpots()
   }
 
@@ -49,7 +47,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-      getUsers: () => dispatch(getUsers()),
       getSkateSpots: () => dispatch(getSkateSpots())
     }
 }
