@@ -92,8 +92,8 @@ const mapStateToProps = (state) => {
   return {
     userData: state.user,
     skateSpots: state.skateSpots,
-    loadingData: state.loadingData,
-    logSearchTerm: state.logSearchTerm
+    loadingData: state.user.loadingData,
+    logSearchTerm: state.user.logSearchTerm
   }
 }
 

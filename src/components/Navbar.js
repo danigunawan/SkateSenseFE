@@ -100,6 +100,7 @@ const logOut = () => {
    localStorage.clear()
  }
 
+
 function NavBar(props) {
   const { classes } = props;
   const skateboard = require(`../assets/skateboard.png`)
@@ -149,6 +150,7 @@ function NavBar(props) {
     </div>
   );
 }
+
 
 NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
