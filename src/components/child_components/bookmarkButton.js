@@ -16,15 +16,11 @@ class BookmarkButton extends Component{
       // currentUserid: this.props.user.id,
       currentBookmarkid: 'empty'
     }
-    console.log('bookmarkButtonProps', this.props)
   }
 
 
   componentDidMount(){
-    this.props.getUserData()
-    .then(() => {
-      this.checkIfUserBookmarkedPost()
-    })
+    this.checkIfUserBookmarkedPost()
   }
 
   checkIfUserBookmarkedPost = () =>{

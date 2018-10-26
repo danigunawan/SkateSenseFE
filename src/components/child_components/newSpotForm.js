@@ -51,7 +51,6 @@ class newSpotForm extends Component {
       Photo: '',
       Description: ''
     }
-    console.log('newspotsform props', this.props);
   }
 
 
@@ -161,7 +160,6 @@ const mapDispatchToProps = (dispatch) => {
 // ENDED HERE. TRYING TO GET PROPS FROM PARENT COMPONENT AND REDUX STORE
 
 const mapStateToProps = (state, stateProps) =>{
-  console.log('NewSPotForm stateProps', stateProps);
   return{
     currentUser: state.user
   }
