@@ -17,7 +17,7 @@ import { Redirect } from 'react-router'
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 const styles = {
   card: {
-    marginTop: 100,
+    marginTop: 50,
     display: 'flex',
     width: 400,
     flexWrap: 'wrap'
