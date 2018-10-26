@@ -61,7 +61,6 @@ class UserProfileContainer extends Component {
   }
 
   render(){
-    console.log('userprofile props', this.props.currentUser)
     const { classes } = this.props;
     return (
       <center>

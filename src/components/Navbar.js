@@ -19,6 +19,8 @@ import { compose } from 'redux'
 import { getSkateSpots } from '../action'
 import { withRouter } from  'react-router-dom'
 import { logoutUser } from '../action'
+import { Redirect } from 'react-router'
+import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
@@ -95,10 +97,11 @@ const styles = theme => ({
   },
 });
 
-const logOut = () => {
-   logoutUser()
-   localStorage.clear()
- }
+function logOut(){
+    localStorage.clear()
+    // console.log('localstorage = ',localStorage.jwt)
+    logoutUser()
+  }
 
 
 function NavBar(props) {
@@ -129,6 +132,10 @@ function NavBar(props) {
           <IconButton href="/profile" className={classes.profileButton} color="inherit" aria-label="Open drawer">
             <ProfileIcon />
           </IconButton>
+
+          <Button href="/login" onClick={() => logOut()} className={classes.profileButton} color="inherit" aria-label="Open drawer">
+            Logout
+          </Button>
 
           <div className={classes.grow} />
           <div className={classes.search}>
