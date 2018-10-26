@@ -30,6 +30,10 @@ class BookmarkContainer extends Component {
     }
   }
 
+  async componentDidMount(){
+    this.setState({ myBookmarks: this.props.userData.user.skate_spots})
+  }
+
   componentWillReceiveProps(nextProps){
     this.handleSearch(nextProps.logSearchTerm)
   }
@@ -41,7 +45,6 @@ class BookmarkContainer extends Component {
   }
 
   renderBookmarks = () =>{
-    console.log('Bookmarkscontainer State---', this.state )
     if (this.state.term === '' || this.state.term === undefined && this.state.myBookmarks !== undefined){
       return(
       <Grid justify='space-evenly' container spacing={24}>
@@ -74,10 +77,7 @@ class BookmarkContainer extends Component {
     )
   }
 
-  async componentDidMount(){
-    console.log('my current props', this.props)
-    this.setState({ myBookmarks: this.props.userData.user.bookmarks})
-  }
+
 
   getBookmarkedSpots = () =>{
     if (this.state.allSkateSpots.payload.length > 0){

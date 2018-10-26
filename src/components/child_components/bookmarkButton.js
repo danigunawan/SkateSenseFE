@@ -12,7 +12,6 @@ class BookmarkButton extends Component{
     this.state = {
       bookmarked: false,
       markerID: this.props.marker.id,
-      // currentUserid: this.props.marker.currentUserid,
       currentUserid: this.props.currentUser.user.id,
       currentBookmarkid: 'empty'
     }
