@@ -68,6 +68,7 @@ class SkateSpotItem extends Component{
   }
 
   renderBookmark = () =>{
+    console.log('SKateSpotItem props', this.props)
     if (this.state.bookmarked === true){
       const { classes } = this.props;
       return(

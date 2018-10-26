@@ -41,6 +41,7 @@ class BookmarkContainer extends Component {
   }
 
   renderBookmarks = () =>{
+    console.log('Bookmarkscontainer State---', this.state )
     if (this.state.term === '' || this.state.term === undefined && this.state.myBookmarks !== undefined){
       return(
       <Grid justify='space-evenly' container spacing={24}>
