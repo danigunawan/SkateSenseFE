@@ -160,8 +160,5 @@ const stylesMap = withStyles(styles)
 
 const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-// export default withAuth(connect(mapStateToProps, mapDispatchToProps)(UserProfileContainer))
 
 export default withAuth(compose(stylesMap, connectMap)(UserProfileContainer))
-
-// export default compose(stylesMap, connectMap)(UserProfileContainer)

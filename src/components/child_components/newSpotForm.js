@@ -13,7 +13,6 @@ import { compose } from 'redux'
 import TextField from '@material-ui/core/TextField';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import IconButton from '@material-ui/core/IconButton';
-import withAuth from '../../hocs/withAuth.js'
 
 const styles = theme => ({
   card: {
@@ -162,7 +161,7 @@ const mapDispatchToProps = (dispatch) => {
 // ENDED HERE. TRYING TO GET PROPS FROM PARENT COMPONENT AND REDUX STORE
 
 const mapStateToProps = (state, stateProps) =>{
-  console.log('log own props', stateProps);
+  console.log('NewSPotForm stateProps', stateProps);
   return{
     currentUser: state.user
   }
@@ -172,5 +171,4 @@ const stylesMap = withStyles(styles)
 
 const connectMap = connect(mapStateToProps, mapDispatchToProps)
 
-export default withAuth(compose(stylesMap, connectMap)(newSpotForm))
-// export default compose(stylesMap, connectMap)(newSpotForm)
+export default compose(stylesMap, connectMap)(newSpotForm)

@@ -205,7 +205,6 @@ class MapContainer extends Component {
     }
 
   onNewInfoWindowOpen = (props, e) => {
-    console.log(this.state.fields.location.lat());
     const wholeForm = (
       <div>
         <NewSpotForm latitude={this.state.fields.location.lat} longitude={this.state.fields.location.lng} newMarkerCreation={this.newMarkerCreation}/>
@@ -267,6 +266,8 @@ const mapStateToProps = state => {
     user: state.user
   }
 }
+
+
 
 
 const connectedMap = connect(mapStateToProps)(MapContainer)

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
 import { fetchCurrentUser } from '../../action'
 import { connect } from 'react-redux'
-import withAuth from '../../hocs/withAuth.js'
 import { compose } from 'redux'
 
 
@@ -14,9 +13,10 @@ class BookmarkButton extends Component{
       bookmarked: false,
       markerID: this.props.marker.id,
       // currentUserid: this.props.marker.currentUserid,
-      currentUserid: this.props.user.id,
+      // currentUserid: this.props.user.id,
       currentBookmarkid: 'empty'
     }
+    console.log('bookmarkButtonProps', this.props)
   }
 
 
@@ -90,4 +90,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const connectMap = connect(mapStateToProps, mapDispatchToProps)
-export default withAuth(compose(connectMap)(BookmarkButton))
+export default compose(connectMap)(BookmarkButton)
