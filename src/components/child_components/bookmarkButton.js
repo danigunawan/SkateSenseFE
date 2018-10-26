@@ -32,15 +32,33 @@ class BookmarkButton extends Component{
   }
 
 
+  // fetch(`http://localhost:3000/api/v1/bookmarks/`,{
+  //         method: 'POST',
+  //         mode: "cors",
+  //         body: JSON.stringify({
+  //           skate_spot_id:210,
+  //           user_id:15
+  //         }),
+  //         headers: {
+  //            "Content-Type": "application/json; charset=utf-8",
+  //           'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNX0.i3ce1vrr43FJ1ox7M0lftvHk_nfGKbxtM-jZ_h8z1Ww'
+  //         }
+  //       })
+  //       .then(res => res.json())
+  //       .then(response => console.log('Success:', JSON.stringify(response)))
+  //       .catch(error => console.error('Error:', error));
+  
   onBookmark = () => {
     console.log(' line 36 props', this.state.currentUserid)
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks`,{
       method: "POST",
+      mode: "cors",
       body: JSON.stringify({
         skate_spot_id:`${this.state.markerID}`,
         user_id: `${this.state.currentUserid}`
       }),
       headers: {
+        "Content-Type": "application/json; charset=utf-8",
         Authorization: `Bearer ${localStorage.getItem('jwt')}`
       }
     }).then(r=>r.json()).then(data=>this.setState({bookmarked: true, currentBookmarkid: data.id}))
