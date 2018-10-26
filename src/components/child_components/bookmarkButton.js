@@ -13,14 +13,14 @@ class BookmarkButton extends Component{
       bookmarked: false,
       markerID: this.props.marker.id,
       // currentUserid: this.props.marker.currentUserid,
-      // currentUserid: this.props.user.id,
+      currentUserid: this.props.currentUser.user.id,
       currentBookmarkid: 'empty'
     }
   }
 
 
   componentDidMount(){
-    this.checkIfUserBookmarkedPost()
+      this.checkIfUserBookmarkedPost()
   }
 
   checkIfUserBookmarkedPost = () =>{
@@ -33,7 +33,7 @@ class BookmarkButton extends Component{
 
 
   onBookmark = () => {
-    console.log(' line 36 props', this.props)
+    console.log(' line 36 props', this.state.currentUserid)
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/bookmarks`,{
       method: "POST",
       body: JSON.stringify({
