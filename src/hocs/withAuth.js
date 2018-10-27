@@ -13,7 +13,7 @@ const withAuth = (WrappedComponent) => {
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
         return <WrappedComponent />
       } else if (localStorage.getItem('jwt') && this.props.authenticatingUser) {
-        return <h1>Loading Profile page</h1>
+        return <h1>Loading</h1>
       } else {
         return <Redirect to="/login" />
       }

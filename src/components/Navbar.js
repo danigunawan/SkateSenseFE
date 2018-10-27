@@ -99,13 +99,11 @@ const styles = theme => ({
 
 function logOut(){
     localStorage.clear()
-    // console.log('localstorage = ',localStorage.jwt)
     logoutUser()
   }
 
 
 function NavBar(props) {
-  console.log('navbar props',props.loggedIn);
   const { classes } = props;
   const skateboard = require(`../assets/skateboard.png`)
   return (
