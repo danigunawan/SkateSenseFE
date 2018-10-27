@@ -3,7 +3,7 @@ import React, { Component, Fragment } from 'react';
 import MapContainer from './containers/MapContainer'
 import { getSkateSpots } from '../action'
 import { connect } from 'react-redux'
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import UserProfileContainer from './containers/UserProfileContainer'
 import SkateSpotContainer from './containers/SkateSpotContainer'
 import LoginContainer from './containers/LoginContainer'

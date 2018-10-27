@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { getUserData } from '../../action'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -54,7 +53,6 @@ class LoginContainer extends Component{
   }
 
   render(){
-    console.log('LOGGED IN?', this.props.loggedIn);
     const { classes } = this.props;
     return  this.props.loggedIn ?(
       <Redirect to="/map" />

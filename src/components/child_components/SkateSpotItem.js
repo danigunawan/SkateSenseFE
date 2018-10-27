@@ -4,11 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import IconButton from '@material-ui/core/IconButton';
 import DirectionsIcon from '@material-ui/icons/Directions'
 import BookMarkButton from './bookmarkButton.js'
-import BottomNavigation from '@material-ui/core/BottomNavigation';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;

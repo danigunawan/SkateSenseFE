@@ -2,10 +2,7 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import NewSpotForm from '../child_components/newSpotForm'
-import LikeButton from '../child_components/likeButton'
 import BookmarkButton from '../child_components/bookmarkButton'
-import SkateSpotPageButton from '../child_components/spotProfileButton'
-import { getSkateSpots } from '../../action'
 import { connect } from 'react-redux'
 import {Provider} from 'react-redux'
 import store from '../../store'
@@ -14,8 +11,8 @@ import DirectionsIcon from '@material-ui/icons/Directions'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { Redirect } from 'react-router'
 import withAuth from '../../hocs/withAuth.js'
+import { Redirect } from 'react-router'
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
@@ -218,14 +215,16 @@ class MapContainer extends Component {
     )
   }
 
-  fetchPlaces(mapProps, map) {
-    const {google} = mapProps;
-    const service = new google.maps.places.PlacesService(map);
-  }
+  // fetchPlaces(mapProps, map) {
+    // const {google} = mapProps;
+    // const service = new google.maps.places.PlacesService(map);
+  // }
 
   render() {
-    // console.log('line 225 mapcontainer logged in? ', this.props.user)
-    return (
+    console.log(this.props.loggedIn);
+    return this.props.skateSpots.message ? (
+      window.location.reload()
+    ) : (
       <Map google={this.props.google}
           style={{width: "100%", marginTop:3, height: "96%"}}
           initialCenter={{lat: 40.7083508384083,lng: -73.9996267923894}}
@@ -237,6 +236,7 @@ class MapContainer extends Component {
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
         {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.skatephoto} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+
 
           <InfoWindow
               marker={this.state.activeMarker}
@@ -254,6 +254,7 @@ class MapContainer extends Component {
           </InfoWindow>
 
     </Map>
+
     )
   }
 }
@@ -263,7 +264,8 @@ const mapStateToProps = state => {
     skateSpots: state.user.skate_spots,
     geoLocation: state.geoLocation,
     logSearchTerm: state.logSearchTerm,
-    user: state.user
+    user: state.user,
+    loggedIn: state.user.loggedIn
   }
 }
 

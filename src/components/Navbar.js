@@ -19,7 +19,6 @@ import { compose } from 'redux'
 import { getSkateSpots } from '../action'
 import { withRouter } from  'react-router-dom'
 import { logoutUser } from '../action'
-import { Redirect } from 'react-router'
 import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
