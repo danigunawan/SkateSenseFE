@@ -152,7 +152,7 @@ class MapContainer extends Component {
         },
         root: {
           flexGrow: 1,
-          maxWidth: 500,
+          maxWidth: 200,
           padding: theme.spacing.unit * 2,
           margin: 20
         },

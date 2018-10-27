@@ -105,6 +105,7 @@ function logOut(){
 
 
 function NavBar(props) {
+  console.log('navbar props',props.loggedIn);
   const { classes } = props;
   const skateboard = require(`../assets/skateboard.png`)
   return (
@@ -133,9 +134,13 @@ function NavBar(props) {
             <ProfileIcon />
           </IconButton>
 
-          <Button href="/login" onClick={() => logOut()} className={classes.profileButton} color="inherit" aria-label="Open drawer">
-            Logout
-          </Button>
+          {props.loggedIn ?
+              <Button href="/login" onClick={() => logOut()} className={classes.profileButton} color="inherit" aria-label="Open drawer">
+                Logout
+              </Button>
+              : null
+          }
+
 
           <div className={classes.grow} />
           <div className={classes.search}>
@@ -168,9 +173,11 @@ const mapStateToProps = (state) => {
   return {
     geoLocation: state.geoLocation,
     skate_spots: state.skate_spots,
-    loadingData: state.loadingData
+    loadingData: state.loadingData,
+    loggedIn: state.user.loggedIn
   }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
