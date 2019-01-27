@@ -102,6 +102,7 @@ export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' })
 
 
 export function getSkateSpots() {
+    console.log('GETTING SKATE SPOTS')
     return (dispatch) =>{
       return fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`,{
         method: 'GET',

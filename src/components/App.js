@@ -20,6 +20,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("PROPS", this.props);
 
     return (
             <Fragment>
@@ -39,6 +40,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log('REDUX STATE', state);
   return {
     users: state.users,
     skate_spots: state.skate_spots
