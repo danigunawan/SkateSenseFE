@@ -61,6 +61,7 @@ class newSpotForm extends Component {
 };
 
   onSubmit = (e) =>{
+    debugger
     e.preventDefault()
     let data = new FormData()
     data.append('name', this.state.SpotName)
@@ -71,7 +72,7 @@ class newSpotForm extends Component {
     data.append('longitude', this.props.longitude())
     data.append('description', this.state.Description)
     data.append('bust_factor', 1)
-    data.append('skatephoto', this.state.Photo)
+    data.append('avatars[]', this.state.Photo)
     data.append('user_id', this.props.currentUser.user.id)
 
     fetch(`http://${process.env.REACT_APP_BACKEND_IP}/api/v1/skate_spots`, {

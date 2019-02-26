@@ -99,7 +99,7 @@ class MapContainer extends Component {
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
-      image: marker.image.url,
+      image: marker.avatars[0].url,
       showingNewInfoWindow: false,
     })}
 
@@ -110,7 +110,7 @@ class MapContainer extends Component {
       selectedPlace:props,
       activeMarker: this.state.newActiveMarker,
       showingInfoWindow: true,
-      image: props.skatephoto.url,
+      image: props.avatars[0].url,
       showingNewInfoWindow: false
     })
   }
@@ -235,7 +235,7 @@ class MapContainer extends Component {
 
         <Marker position={this.state.fields.location} onClick={this.newMarkerClick}/>
 
-        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.skatephoto} position={{lat:spot.latitude, lng:spot.longitude}} />)}
+        {this.props.skateSpots.map(spot => <Marker key={spot.id} id={spot.id} currentUserid={1} onClick={this.onMarkerClick} title={spot.name} bustFactor={spot.bust_factor} description={spot.description} image={spot.avatars[0].url} position={{lat:spot.latitude, lng:spot.longitude}} />)}
 
 
           <InfoWindow
