@@ -95,11 +95,12 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (props, marker, e) =>{
+    debugger
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true,
-      image: marker.avatars[0].url,
+      image: marker.image,
       showingNewInfoWindow: false,
     })}
 
