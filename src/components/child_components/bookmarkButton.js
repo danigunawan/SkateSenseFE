@@ -4,8 +4,6 @@ import { fetchCurrentUser } from '../../action'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
-
-
 class BookmarkButton extends Component{
   constructor(props){
     super(props)
